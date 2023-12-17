@@ -1,22 +1,23 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { RouterLink, RouterView } from "vue-router"
-const fName = ref('Bian')
-const lName = ref('Goole')
 
-const compFullName = computed(() => {
-  return fName.value + ' ' + lName.value
+const active = reactive({
+  active: '',
 })
 
 </script>
-
 <template>
-<div>
-  <RouterLink to="/">Home</RouterLink>
+<div class="Navigation">
+  <RouterLink  to="/">Home</RouterLink>
   <RouterLink to="/about">about</RouterLink>
 </div>
 <RouterView />
 </template>
 
-<style scoped>
+<style>
+body {
+  margin: 0;
+  background-color: rgb(17, 2, 58);
+}
 </style>
