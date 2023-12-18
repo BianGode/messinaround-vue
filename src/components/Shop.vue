@@ -7,6 +7,7 @@
 
 <script setup>
 
+
 </script>
 
 <style lang="scss" scoped>
@@ -14,7 +15,7 @@ h1 {
   color: black;
 }
 .shopWrap {
-
+  display: flex;
 }
 
 </style>
