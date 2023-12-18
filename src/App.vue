@@ -29,7 +29,7 @@ function changeText() {
 }
 .blue {
   transition: filter 1s ease;
-  filter: drop-shadow(16px 16px 20px blue) 
+  filter: drop-shadow(50px 50px 50px blue) 
 }
 .red {
   transition: filter 1s ease;
