@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const email = ref('test@test.nl')
+const email = ref('')
 const pass = ref('')
 
 </script>
@@ -12,8 +12,6 @@ const pass = ref('')
     <div>
       <p>Email</p>
       <input type="text">
-      <p>Password</p>
-      <input type="password">
       <p>Password</p>
       <input type="password">
     </div>

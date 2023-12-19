@@ -9,15 +9,40 @@ const active = reactive({
 </script>
 <template>
 <div class="Navigation">
-  <RouterLink  to="/">Home</RouterLink>
-  <RouterLink to="/about">about</RouterLink>
+  <div class="hamburger">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+  </div>
+  <RouterLink class="link" to="/">Home</RouterLink>
+  <RouterLink class="link" to="/about">about</RouterLink>
 </div>
 <RouterView />
 </template>
 
-<style>
-body {
-  margin: 0;
-  background-color: rgb(17, 2, 58);
+<style lang="scss" scoped>
+.Navigation {
+  width: 100%;
+  height: 70px;
+  background-image: url('./assets/header.jpeg');
+  background-size: cover;
+  display: flex;
+  padding: 10px;
+  .hamburger {
+    height: 20px;
+    width: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .line {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: black;
+    }
+  }
+  .link {
+
+  }
 }
 </style>
