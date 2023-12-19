@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { login } from '../firebase';
 
 const email = ref('')
 const pass = ref('')
@@ -11,10 +12,11 @@ const pass = ref('')
     <h3>Login</h3>
     <div>
       <p>Email</p>
-      <input type="text">
+      <input v-model="email" type="text">
       <p>Password</p>
-      <input type="password">
+      <input v-model="pass" type="password">
     </div>
+    <button @click="login(email, pass)">Login</button>
   </div>
 </template>
 
