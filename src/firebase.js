@@ -68,15 +68,20 @@ async function getProducts() {
   return tempArr
 }
 
-function getStorageImages(products) {
+async function getStorageImages(products) {
   const storage = getStorage()
   const images = []
+  const mainRef = ref(storage, '/products')
   products.forEach((product) => {
-    getDownloadURL(ref(storage, 'gs://generic-webshop-c2649.appspot.com/products/' + product.image)).then((url) => {
-      images.push(url)
+
+    const imageRef = ref(storage, 'products/' + product.image)
+    getDownloadURL(imageRef).then((url) => {
+        
+    images.push(url)
     })
   })
   return images
+  // return images
 }
 
 // async function getImagesProducts() {
