@@ -1,0 +1,20 @@
+<script setup>
+const props = defineProps({
+  image: String,
+  title: String,
+  description: String,
+  type: String
+})
+</script>
+<template>
+  <div class="Product">
+    <img :src="props.image" alt="" srcset="">
+    <li>{{ props.title }}</li>
+    <li>{{ props.description }}</li>
+    <li>{{ props.type }}</li>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+
+</style>

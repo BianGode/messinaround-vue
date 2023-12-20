@@ -28,18 +28,22 @@ const closeSidebar = () => {
 
 </script>
 <template>
+  <div></div>
   <div class="Navigation">
-    <div  class="hamburger" @click="closeSidebar">
+    <div class="hamburger" @click="closeSidebar">
       <span class="line"></span>
       <span class="line"></span>
       <span class="line"></span>
     </div>
-    <div>
+    <h1>Logo</h1>
+    <div class="links">
       <RouterLink class="link" to="/">Home</RouterLink>
       <RouterLink class="link" to="/about">about</RouterLink>
       <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
       <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
     </div>
+    <h1>Profile</h1>
+
   </div>
   <div class="sideBar">
     <h3 @click="closeSidebar">X</h3>
@@ -54,13 +58,6 @@ const closeSidebar = () => {
   <RouterView />
 </template>
 <style lang="scss" scoped>
-@media only screen and (min-width: 900px) {
-  .Navigation {
-    .hamburger {
-      display: none;
-    } 
-  }
-}
 .Navigation {
   width: 100%;
   height: 70px;
@@ -86,6 +83,7 @@ const closeSidebar = () => {
     }
 
   }
+
   .link {
     display: none;
   }
@@ -100,9 +98,11 @@ const closeSidebar = () => {
   z-index: 9;
   background-color: rgba(43, 48, 9, 0.5);
 }
+
 .sideBar {
   display: none;
 }
+
 .sideBar.on {
   position: absolute;
   top: 0;
@@ -113,9 +113,32 @@ const closeSidebar = () => {
   flex-direction: column;
   background-color: white;
   z-index: 10;
+
   .sideBarLinks {
     display: flex;
     flex-direction: column;
+  }
+}
+
+// mediaQueries for desktop
+@media screen and (min-width: 900px) {
+  .Navigation {
+    .hamburger {
+      display: none;
+    }
+
+    .links {
+      display: flex;
+      gap: 1rem;
+
+      .link {
+        display: block;
+        text-decoration: none;
+        color: white;
+        padding: 5px 10px;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+    }
   }
 }
 </style>
