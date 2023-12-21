@@ -55,33 +55,29 @@ async function getOrders(email) {
   const ordersRef = collection(db, "Users/" + email + '/products-ordered');
   const ordersSnapshot = await getDocs(ordersRef)
 }
-async function getProducts() {
+async function getProductsWithImage() {
   const productsRef = collection(db, "Products");
   const productsSnapshot = await getDocs(productsRef);
   const tempArr = []
+  let parserArray = []
   productsSnapshot.forEach((product, inx) => {
     tempArr.push(product.data())
-    // console.log(tempArr[inx].description);
-    // console.log(tempArr[inx].product.id);
-    // console.log(tempArr[inx].product.type);
   })
-  return tempArr
+
+  const storage = getStorage()
+  parserArray = [...tempArr]
+  tempArr.forEach((product, inx) => {
+    const imageRef = ref(storage, 'products/' + product.image)
+    getDownloadURL(imageRef).then((url) => {
+      parserArray[inx].image = url
+    })
+  })
+  // return an object with the images combined
+  return parserArray
 }
 
 async function getStorageImages(products) {
-  const storage = getStorage()
-  const images = []
-  const mainRef = ref(storage, '/products')
-  products.forEach((product) => {
-
-    const imageRef = ref(storage, 'products/' + product.image)
-    getDownloadURL(imageRef).then((url) => {
-        
-    images.push(url)
-    })
-  })
-  return images
-  // return images
+  
 }
 
 // async function getImagesProducts() {
@@ -91,4 +87,4 @@ async function getStorageImages(products) {
 
 // }
 
-export { auth, register, login, getProducts, getOrders, getStorageImages};
+export { auth, register, login, getProductsWithImage, getOrders, getStorageImages};

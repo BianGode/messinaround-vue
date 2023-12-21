@@ -8,20 +8,8 @@ const props = defineProps({
   description: String,
   type: String
 })
-const imagesList = reactive({
-  img: [],
-})
 
-const storage = getStorage()
-const mainRef = ref(storage, '/products/')
-const imageRef = ref(storage, 'products/' + props.image)
-
-async function getProductsTwo() {
-
-getStorageImages()
-}
-
-console.log(imagesList);
+console.log(props.image);
 </script>
 <template>
   <div class="Product">
