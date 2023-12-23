@@ -68,12 +68,13 @@ async function getProducts() {
 
 async function getStorageImages(res) {
   const storage = getStorage();
-  let tempArr = []
+  let tempArr = [...res]
+  let returnArr = []
   tempArr.forEach((product,inx,arr) => {
     const imageRef = ref(storage, "products/" + product.image);
     getDownloadURL(imageRef)
     .then((resUrl) => {
-      tempArr.push(resUrl);
+      returnArr.push(resUrl);
       // console.log(arr);
     })
     .catch((err) => {
@@ -81,7 +82,7 @@ async function getStorageImages(res) {
     });
 
   })
-  return tempArr
+  return returnArr
 }
 
 export {
