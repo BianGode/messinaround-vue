@@ -61,35 +61,28 @@ async function getProducts() {
   const querySnapshot = await getDocs(productsRef);
   querySnapshot.forEach((product, inx) => {
     tempArr.push(product.data());
-  })
-  return tempArr
+    console.log(tempArr[inx]);
+  });
+  return tempArr;
   // return an object with the images combined
 }
 
-async function getStorageImages(res) {
-  const storage = getStorage();
-  let tempArr = [...res]
-  let returnArr = []
-  tempArr.forEach((product,inx,arr) => {
-    const imageRef = ref(storage, "products/" + product.image);
-    getDownloadURL(imageRef)
-    .then((resUrl) => {
-      returnArr.push(resUrl);
-      // console.log(arr);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+// async function getStorageImages(res) {
+//   const storage = getStorage();
+//   let tempArr = [...res];
+//   let returnArr = [];
+//   tempArr.forEach((product, inx, arr) => {
+//     const imageRef = ref(storage, "products/" + product.image);
+//     getDownloadURL(imageRef)
+//       .then((resUrl) => {
+//         returnArr.push(resUrl);
+//         // console.log(arr);
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   });
+//   return returnArr;
+// }
 
-  })
-  return returnArr
-}
-
-export {
-  auth,
-  register,
-  login,
-  getProducts,
-  getOrders,
-  getStorageImages,
-};
+export { auth, register, login, getProducts, getOrders };

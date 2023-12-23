@@ -1,7 +1,6 @@
 <script setup>
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
-import { reactive } from 'vue';
-import { getStorageImages } from '../firebase';
+import { reactive, watch } from 'vue';
 const props = defineProps({
   image: String,
   title: String,
@@ -9,6 +8,9 @@ const props = defineProps({
   type: String,
 })
 
+watch(props.image, () => {
+  console.log(props.image);
+})
 
 </script>
 <template>
