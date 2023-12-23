@@ -12,10 +12,9 @@ import {
   doc,
   setDoc,
   getDoc,
-  getDocs
+  getDocs,
 } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -52,39 +51,44 @@ async function login(email, password) {
     });
 }
 async function getOrders(email) {
-  const ordersRef = collection(db, "Users/" + email + '/products-ordered');
-  const ordersSnapshot = await getDocs(ordersRef)
+  // const ordersRef = collection(db, "Users/" + email + "/products-ordered");
+  // const ordersSnapshot = await getDocs(ordersRef);
 }
-async function getProductsWithImage() {
+
+async function getProducts() {
+  let tempArr = [];
   const productsRef = collection(db, "Products");
-  const productsSnapshot = await getDocs(productsRef);
-  const tempArr = []
-  let parserArray = []
-  productsSnapshot.forEach((product, inx) => {
-    tempArr.push(product.data())
+  const querySnapshot = await getDocs(productsRef);
+  querySnapshot.forEach((product, inx) => {
+    tempArr.push(product.data());
   })
-
-  const storage = getStorage()
-  parserArray = [...tempArr]
-  tempArr.forEach((product, inx) => {
-    const imageRef = ref(storage, 'products/' + product.image)
-    getDownloadURL(imageRef).then((url) => {
-      parserArray[inx].image = url
-    })
-  })
+  return tempArr
   // return an object with the images combined
-  return parserArray
 }
 
-async function getStorageImages(products) {
-  
+async function getStorageImages(res) {
+  const storage = getStorage();
+  let tempArr = []
+  tempArr.forEach((product,inx,arr) => {
+    const imageRef = ref(storage, "products/" + product.image);
+    getDownloadURL(imageRef)
+    .then((resUrl) => {
+      tempArr.push(resUrl);
+      // console.log(arr);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  })
+  return tempArr
 }
 
-// async function getImagesProducts() {
-// // link images to products
-// const storage = getStorage()
-// const pathRef = ref(storage, 'gs://generic-webshop-c2649.appspot.com/')
-
-// }
-
-export { auth, register, login, getProductsWithImage, getOrders, getStorageImages};
+export {
+  auth,
+  register,
+  login,
+  getProducts,
+  getOrders,
+  getStorageImages,
+};

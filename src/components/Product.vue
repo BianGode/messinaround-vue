@@ -6,10 +6,10 @@ const props = defineProps({
   image: String,
   title: String,
   description: String,
-  type: String
+  type: String,
 })
 
-console.log(props.image);
+
 </script>
 <template>
   <div class="Product">
