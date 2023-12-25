@@ -31,7 +31,7 @@ asyncGetter()
     <h1>Shop</h1>
     <div class="shop">
       <li v-for="(product, index) in products.list">
-        <Product :image="products.image" :description="product.description" :title="product.title" :type="product.type" />
+        <Product :image="product.image" :description="product.description" :title="product.title" :type="product.type" />
       </li>
     </div>
   </div>

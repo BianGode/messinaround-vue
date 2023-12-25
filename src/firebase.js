@@ -50,6 +50,7 @@ async function login(email, password) {
       console.log(err);
     });
 }
+
 async function getOrders(email) {
   // const ordersRef = collection(db, "Users/" + email + "/products-ordered");
   // const ordersSnapshot = await getDocs(ordersRef);
