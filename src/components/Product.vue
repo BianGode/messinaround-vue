@@ -7,6 +7,8 @@ const props = defineProps({
   type: String,
 })
 
+const emitShopCart = defineEmits(['shop-cart'])
+
 watch(props.image, () => {
   console.log(props.image);
 })
@@ -22,7 +24,7 @@ watch(props.image, () => {
     <div class="productHover">
       <p>View</p>
       <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-      <p><img :src="faCartShopping" alt="" srcset=""> Add to cart</p>
+      <img :src="faCartShopping" @click="emitShopCart('shop-cart',props.image, props.title)" alt="" srcset="">
     </div>
   </div>
 </template>

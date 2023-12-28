@@ -20,6 +20,8 @@ const asyncGetter = async () => {
   })
 }
 asyncGetter()
+const emitShopCart = defineEmits(['shop-cart'])
+
 </script>
 <template>
   <div class="shopWrap">
@@ -29,7 +31,7 @@ asyncGetter()
         <!-- TODO = Render the correct data and clean css -->
         <div class="productWrap" v-for="(product, index) in products.list">
           <Product :image="product.image" :description="product.description" :title="product.title"
-            :type="product.type" />
+            :type="product.type" @click="emitShopCart('shop-cart', product.image, product.title)" />
         </div>
       </div>
     </div>

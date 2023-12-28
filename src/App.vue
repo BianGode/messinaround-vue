@@ -30,9 +30,20 @@ const closeSidebar = () => {
 }
 
 const toggleShoppingCart = () => {
-
+  const shoppingcartEl = document.querySelector('.shoppingCart')
+  shoppingcartEl.classList.toggle('on')
 }
 
+const addToShoppingCart = (img, title) => {
+  console.log(img, title);
+  cartState.products.push({
+    img: img,
+    title: title
+  })
+}
+const removeFromCart = (index) => {
+  cartState.products.splice(index)
+}
 </script>
 <template>
   <div></div>
@@ -57,11 +68,10 @@ const toggleShoppingCart = () => {
   <!-- Shopping cart -->
   <div class="shoppingCart">
     <h3>X products</h3>
-    <div>
-      <div v-if="cartState.products.length > 0" v-for="prod in cartState.products">
-        <img :src="prod.image" alt="">
-        <p>{{ prod.name }}</p>
-      </div>    
+    <div class="cart-item" v-if="cartState.products.length > 0" v-for="(prod, inx) in cartState.products">
+      <img :src="prod.img" alt="">
+      <p>{{ prod.title }}</p>
+      <font-awesome-icon icon="fa-solid fa-trash" @click="removeFromCart(inx)"/>
     </div>
   </div>
 
@@ -76,8 +86,8 @@ const toggleShoppingCart = () => {
     </div>
   </div>
   <div class="backDrop"></div>
-  
-  <RouterView />
+
+  <RouterView @shop-cart="addToShoppingCart" />
 </template>
 <style lang="scss" scoped>
 .Navigation {
@@ -162,5 +172,27 @@ const toggleShoppingCart = () => {
       }
     }
   }
+}
+
+//shoppingCart style
+.shoppingCart.on {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  position: absolute;
+  background-color: aquamarine;
+  top: 80px;
+  left: 10%;
+  .cart-item {
+    display: flex;
+    img {
+      width: 70px;
+    }
+  }
+
+}
+
+.shoppingCart {
+  display: none;
 }
 </style>
