@@ -20,29 +20,36 @@ const asyncGetter = async () => {
   })
 }
 asyncGetter()
-
-
-
-
-
 </script>
 <template>
   <div class="shopWrap">
     <h1>Shop</h1>
     <div class="shop">
-      <li v-for="(product, index) in products.list">
-        <Product :image="product.image" :description="product.description" :title="product.title" :type="product.type" />
-      </li>
+      <div class="row-one">
+        <!-- TODO = Render the correct data and clean css -->
+        <div class="productWrap" v-for="(product, index) in products.list">
+          <Product :image="product.image" :description="product.description" :title="product.title"
+            :type="product.type" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-h1 {
-  color: black;
+ @media only screen and (min-width: 600px) {
+    .row-one {
+      display: flex;
+      width: 100%;
+      justify-content: space-evenly;
+      .productWrap {
+        width: 20%;
+        height: 500px;
+      }
+    }
 }
 
-.shopWrap {
-  display: flex;
+h1 {
+  color: black;
 }
 </style>

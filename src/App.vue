@@ -9,6 +9,9 @@ const active = reactive({
 const userState = reactive({
   user: null,
 })
+const cartState = reactive({
+  products: []
+})
 const auth = getAuth()
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -24,6 +27,10 @@ const closeSidebar = () => {
 
   sideBar.classList.toggle('on')
   backDrop.classList.toggle('on')
+}
+
+const toggleShoppingCart = () => {
+
 }
 
 </script>
@@ -42,9 +49,23 @@ const closeSidebar = () => {
       <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
       <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
     </div>
-    <h1>Profile</h1>
+    <div @click="toggleShoppingCart">
+      <font-awesome-icon class="headCart" icon="fa-solid fa-cart-shopping" />
+    </div>
 
   </div>
+  <!-- Shopping cart -->
+  <div class="shoppingCart">
+    <h3>X products</h3>
+    <div>
+      <div v-if="cartState.products.length > 0" v-for="prod in cartState.products">
+        <img :src="prod.image" alt="">
+        <p>{{ prod.name }}</p>
+      </div>    
+    </div>
+  </div>
+
+  <!-- sidebar -->
   <div class="sideBar">
     <h3 @click="closeSidebar">X</h3>
     <div class="sideBarLinks">
@@ -55,6 +76,7 @@ const closeSidebar = () => {
     </div>
   </div>
   <div class="backDrop"></div>
+  
   <RouterView />
 </template>
 <style lang="scss" scoped>
