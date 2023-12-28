@@ -50,7 +50,6 @@ const emitShopCart = defineEmits(['shop-cart'])
       }
     }
 }
-
 h1 {
   color: black;
 }

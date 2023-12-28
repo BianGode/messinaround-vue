@@ -56,7 +56,8 @@ const removeFromCart = (index) => {
     <h1>Logo</h1>
     <div class="links">
       <RouterLink class="link" to="/">Home</RouterLink>
-      <RouterLink class="link" to="/about">about</RouterLink>
+      <RouterLink class="link" to="/about">About</RouterLink>
+      <RouterLink class="link" to="/shop">Shop</RouterLink>
       <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
       <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
     </div>
@@ -81,6 +82,7 @@ const removeFromCart = (index) => {
     <div class="sideBarLinks">
       <RouterLink class="link" to="/">Home</RouterLink>
       <RouterLink class="link" to="/about">about</RouterLink>
+      <RouterLink class="link" to="/shop">Shop</RouterLink>
       <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
       <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
     </div>
@@ -90,6 +92,14 @@ const removeFromCart = (index) => {
   <RouterView @shop-cart="addToShoppingCart" />
 </template>
 <style lang="scss" scoped>
+@keyframes expand {
+  from { width: 0;}
+  to {width: 80%}
+}
+@keyframes contract {
+  from { width: 80%;}
+  to {width: 0%;}
+}
 .Navigation {
   width: 100%;
   height: 70px;
@@ -180,9 +190,11 @@ const removeFromCart = (index) => {
   width: 80%;
   flex-direction: column;
   position: absolute;
-  background-color: aquamarine;
+  background-color: rgba(255, 215, 0, 0.8);
+  border-radius: 5px;
   top: 80px;
   left: 10%;
+  animation: expand 0.5s;
   .cart-item {
     display: flex;
     img {
@@ -194,5 +206,7 @@ const removeFromCart = (index) => {
 
 .shoppingCart {
   display: none;
+  width: 0;
+  animation: contract 0.5s linear;
 }
 </style>

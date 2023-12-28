@@ -21,5 +21,27 @@ const pass = ref('')
 </template>
 
 <style lang="scss" scoped>
-
+.loginPage {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  align-items: center;
+  gap: 1rem;
+  div {
+    input {
+      width: 80%;
+    }
+  }
+  button {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    background-color: rgb(65, 136, 65);
+  }
+}
+@media only screen and (min-width: 900px) {
+   
+}
 </style>
