@@ -42,7 +42,8 @@ const addToShoppingCart = (img, title) => {
   })
 }
 const removeFromCart = (index) => {
-  cartState.products.splice(index)
+  const stateProd = cartState.products.splice(index, 1)
+  console.log(stateProd);
 }
 </script>
 <template>
@@ -100,6 +101,7 @@ const removeFromCart = (index) => {
   from { width: 80%;}
   to {width: 0%;}
 }
+
 .Navigation {
   width: 100%;
   height: 70px;
@@ -116,16 +118,13 @@ const removeFromCart = (index) => {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     .line {
       display: block;
       width: 100%;
       height: 2px;
       background-color: black;
     }
-
   }
-
   .link {
     display: none;
   }

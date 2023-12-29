@@ -23,7 +23,7 @@ watch(props.image, () => {
     <li>{{ props.type }}</li>
     <div class="productHover">
       <p>View</p>
-      <font-awesome-icon @click="emitShopCart('shop-cart', props.image, props.title)" icon="fa-solid fa-cart-shopping" />
+      <font-awesome-icon class="add-cart" @click="emitShopCart('shop-cart', props.image, props.title)" icon="fa-solid fa-cart-shopping" />
       <!-- <img :src="faCartShopping"  alt="" srcset=""> -->
     </div>
   </div>
@@ -37,7 +37,18 @@ watch(props.image, () => {
     height: 100%;
   }
 }
-
+// Keyframe for the onlcik 
+@keyframes enlarge {
+  0% {
+    transform: scale(1.0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1.0);
+  }
+}
 .ProductWrap {
 
 }
@@ -52,6 +63,9 @@ watch(props.image, () => {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    .add-cart {
+    animation: enlarge 0.5s !important;
+  }
   }
 
   .titleLi {
@@ -61,6 +75,7 @@ watch(props.image, () => {
   img {
     width: 100%;
   }
+  
 
 }
 
