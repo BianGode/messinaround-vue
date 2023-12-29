@@ -45,6 +45,10 @@ const removeFromCart = (index) => {
   const stateProd = cartState.products.splice(index, 1)
   console.log(stateProd);
 }
+
+// still todo
+// https://trello.com/b/mD6RYfMa/webshop-vue
+
 </script>
 <template>
   <div></div>
@@ -90,7 +94,7 @@ const removeFromCart = (index) => {
   </div>
   <div class="backDrop"></div>
 
-  <RouterView @shop-cart="addToShoppingCart" />
+  <RouterView :addToCart="addToShoppingCart"/>
 </template>
 <style lang="scss" scoped>
 @keyframes expand {

@@ -12,6 +12,10 @@ const images = reactive({
   list: []
 })
 
+const props = defineProps({
+    addToCart: Boolean | Function,
+});
+
 const asyncGetter = async () => {
   await getProducts().then((res) => {
     products.list.push(...res)
@@ -31,7 +35,8 @@ const emitShopCart = defineEmits(['shop-cart'])
         <!-- TODO = Render the correct data and clean css -->
         <div class="productWrap" v-for="(product, index) in products.list">
           <Product :image="product.image" :description="product.description" :title="product.title"
-            :type="product.type" @click="emitShopCart('shop-cart', product.image, product.title)" />
+            :type="product.type" :addToCart="props.addToCart"/>
+            <!-- @click="emitShopCart('shop-cart', product.image, product.title)" -->
         </div>
       </div>
     </div>

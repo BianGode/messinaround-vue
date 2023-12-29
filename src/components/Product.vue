@@ -5,6 +5,7 @@ const props = defineProps({
   title: String,
   description: String,
   type: String,
+  addToCart: Boolean | Function,
 })
 
 const emitShopCart = defineEmits(['shop-cart'])
@@ -21,9 +22,10 @@ watch(props.image, () => {
     <li class="titleLi">{{ props.title }}</li>
     <li>{{ props.description }}</li>
     <li>{{ props.type }}</li>
+    <!-- <li>{{ props.price }}</li> -->
     <div class="productHover">
       <p>View</p>
-      <font-awesome-icon class="add-cart" @click="emitShopCart('shop-cart', props.image, props.title)" icon="fa-solid fa-cart-shopping" />
+      <font-awesome-icon class="add-cart" @click="props.addToCart(props.image, props.title)" icon="fa-solid fa-cart-shopping" />
       <!-- <img :src="faCartShopping"  alt="" srcset=""> -->
     </div>
   </div>
@@ -49,10 +51,6 @@ watch(props.image, () => {
     transform: scale(1.0);
   }
 }
-.ProductWrap {
-
-}
-
 .Product {
   display: flex;
   flex-direction: column;
@@ -64,8 +62,8 @@ watch(props.image, () => {
     justify-content: space-evenly;
     align-items: center;
     .add-cart {
-    animation: enlarge 0.5s !important;
-  }
+      animation: enlarge 0.5s linear;
+    }
   }
 
   .titleLi {
@@ -76,7 +74,6 @@ watch(props.image, () => {
     width: 100%;
   }
   
-
 }
 
 li {
