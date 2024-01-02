@@ -10,9 +10,6 @@ const props = defineProps({
 
 const emitShopCart = defineEmits(['shop-cart'])
 
-watch(props.image, () => {
-  console.log(props.image);
-})
 
 </script>
 <!-- TODO =  Add product to card -->
@@ -52,11 +49,15 @@ watch(props.image, () => {
   }
 }
 .Product {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  background-color: darkgoldenrod;
-
+  display: grid;
+  height: 100%;
+  
+  .titleLi {
+    font-weight: 700;
+  }
+  img {
+    width: 300px;
+  }
   .productHover {
     display: flex;
     justify-content: space-evenly;
@@ -65,15 +66,6 @@ watch(props.image, () => {
       animation: enlarge 0.5s linear;
     }
   }
-
-  .titleLi {
-    font-weight: 700;
-  }
-
-  img {
-    width: 100%;
-  }
-  
 }
 
 li {

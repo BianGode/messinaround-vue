@@ -30,6 +30,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+// initialize storage
+const storage = getStorage(app)
 
 async function register(email, password) {
   await createUserWithEmailAndPassword(auth, email, password)
@@ -62,11 +64,11 @@ async function getProducts() {
   const querySnapshot = await getDocs(productsRef);
   querySnapshot.forEach((product, inx) => {
     tempArr.push(product.data());
-    console.log(tempArr[inx]);
   });
   return tempArr;
   // return an object with the images combined
 }
+
 
 // async function getStorageImages(res) {
 //   const storage = getStorage();

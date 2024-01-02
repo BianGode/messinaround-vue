@@ -73,7 +73,7 @@ const removeFromCart = (index) => {
   </div>
   <!-- Shopping cart -->
   <div class="shoppingCart">
-    <h3>X products</h3>
+    <h3>{{ cartState.products.length }} products</h3>
     <div class="cart-item" v-if="cartState.products.length > 0" v-for="(prod, inx) in cartState.products">
       <img :src="prod.img" alt="">
       <p>{{ prod.title }}</p>
