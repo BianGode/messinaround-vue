@@ -12,10 +12,15 @@ const userState = reactive({
 const cartState = reactive({
   products: []
 })
+const admin = ref(false)
+
 const auth = getAuth()
 onAuthStateChanged(auth, (user) => {
   if (user) {
     userState.user = user
+    if(user.email == 'admin@admin.admin') {
+      admin.value = true
+    }
   } else {
     console.log('Not signed in');
   }
@@ -111,6 +116,7 @@ const removeFromCart = (index) => {
   height: 70px;
   background-image: url('./assets/header.jpeg');
   background-size: cover;
+  background-position: center;
   display: flex;
   align-items: center;
   justify-content: space-between;

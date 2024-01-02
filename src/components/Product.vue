@@ -1,6 +1,8 @@
 <script setup>
 import { reactive, watch } from 'vue';
+import { RouterLink } from 'vue-router';
 const props = defineProps({
+  id: Number,
   image: String,
   title: String,
   description: String,
@@ -21,7 +23,7 @@ const emitShopCart = defineEmits(['shop-cart'])
     <li>{{ props.type }}</li>
     <!-- <li>{{ props.price }}</li> -->
     <div class="productHover">
-      <p>View</p>
+      <RouterLink :to="'product/' + props.id">View</RouterLink>
       <font-awesome-icon class="add-cart" @click="props.addToCart(props.image, props.title)" icon="fa-solid fa-cart-shopping" />
       <!-- <img :src="faCartShopping"  alt="" srcset=""> -->
     </div>
@@ -57,6 +59,8 @@ const emitShopCart = defineEmits(['shop-cart'])
   }
   img {
     width: 300px;
+    margin: 0 auto;
+
   }
   .productHover {
     display: flex;

@@ -9,11 +9,12 @@ import {
 import {
   getFirestore,
   collection,
-  doc,
-  setDoc,
   getDoc,
   getDocs,
+  query,
+  where,
 } from "firebase/firestore";
+import { useRouter } from "vue-router";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 // Your web app's Firebase configuration
@@ -31,7 +32,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 // initialize storage
-const storage = getStorage(app)
+const storage = getStorage(app);
 
 async function register(email, password) {
   await createUserWithEmailAndPassword(auth, email, password)
@@ -69,6 +70,25 @@ async function getProducts() {
   // return an object with the images combined
 }
 
+async function getSingleProduct() {
+  // script to get the current route and get the id based on url
+  const router = useRouter();
+
+  const id = router.currentRoute.value.fullPath.split("product/")[1];
+  let product = [];
+  const col = collection(db, "Products")
+  const q = query(col, where("id", "==", id));
+  const testSnap = await getDocs(q)
+  testSnap.forEach((prod) => {
+    console.log(prod.data());
+    // console.log()
+    product.push(prod.data());
+    // product.forEach((el) => {
+    // })
+  });
+  return product;
+
+}
 
 // async function getStorageImages(res) {
 //   const storage = getStorage();
@@ -88,4 +108,4 @@ async function getProducts() {
 //   return returnArr;
 // }
 
-export { auth, register, login, getProducts, getOrders };
+export { auth, register, login, getProducts, getOrders, getSingleProduct };

@@ -1,10 +1,10 @@
 <script setup>
 import { onAuthStateChanged, getAuth } from 'firebase/auth';
-import { getProducts } from '../firebase';
-import Product from './Product.vue';
+import { getProducts } from '../../firebase';
+import Product from '../Product.vue';
+import ProductPage from '../ProductPage.vue';
 import { reactive, toRaw, watch, watchEffect } from 'vue';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
-
 
 const products = reactive({
   list: []
@@ -43,7 +43,7 @@ const emitShopCart = defineEmits(['shop-cart'])
       <div class="row-one">
         <!-- TODO = Render the correct data and clean css -->
         <div class="productWrap" v-for="(product, index) in products.list">
-          <Product :image="product.image" :description="product.description" :title="product.title" :type="product.type"
+          <Product :id="product.id" :image="product.image" :description="product.description" :title="product.title" :type="product.type"
             :addToCart="props.addToCart" />
           <!-- @click="emitShopCart('shop-cart', product.image, product.title)" -->
         </div>
@@ -79,6 +79,5 @@ const emitShopCart = defineEmits(['shop-cart'])
 
     // 1st product oragne second white for contast
   }
-
 }
 </style>

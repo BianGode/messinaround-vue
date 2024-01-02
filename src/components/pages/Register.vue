@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { register } from '../firebase';
+import { register } from '../../firebase';
 
 
 const email = ref('')

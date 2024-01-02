@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { login } from '../firebase';
+import { login } from '../../firebase';
 
 const email = ref('')
 const pass = ref('')
