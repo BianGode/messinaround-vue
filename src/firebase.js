@@ -74,12 +74,12 @@ async function getSingleProduct() {
   // script to get the current route and get the id based on url
   const router = useRouter();
 
-  const id = router.currentRoute.value.fullPath.split("product/")[1];
+  const title = router.currentRoute.value.fullPath.split("product/")[1];
   let product = [];
-  const col = collection(db, "products")
-  const q = query(col, where("id", "==", id));
+  const col = collection(db, "Products")
+  const q = query(col, where("title", "==", title));
   const testSnap = await getDocs(q)
-  testSnap.forEach((prod) => {
+  testSnap.forEach((prod, inx) => {
     console.log(prod.data(), prod.id);
     product.push(prod.data());
   });
