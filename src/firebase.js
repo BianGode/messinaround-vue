@@ -76,15 +76,12 @@ async function getSingleProduct() {
 
   const id = router.currentRoute.value.fullPath.split("product/")[1];
   let product = [];
-  const col = collection(db, "Products")
+  const col = collection(db, "products")
   const q = query(col, where("id", "==", id));
   const testSnap = await getDocs(q)
   testSnap.forEach((prod) => {
-    console.log(prod.data());
-    // console.log()
+    console.log(prod.data(), prod.id);
     product.push(prod.data());
-    // product.forEach((el) => {
-    // })
   });
   return product;
 
