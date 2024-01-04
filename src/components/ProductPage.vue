@@ -1,8 +1,9 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { getSingleProduct } from '../firebase'
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
+import { checkSideBarFun } from '../functions'
 
 const recieviedProd = reactive({
   product: {},
@@ -26,6 +27,11 @@ const singleProduct = async () => {
   })
 }
 singleProduct()
+
+// same onMounted in everypage
+onMounted(() => {
+  checkSideBarFun()
+})
 
 </script>
 <template>

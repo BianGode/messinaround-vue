@@ -3,8 +3,9 @@ import { onAuthStateChanged, getAuth } from 'firebase/auth';
 import { getProducts } from '../../firebase';
 import Product from '../Product.vue';
 import ProductPage from '../ProductPage.vue';
-import { reactive, toRaw, watch, watchEffect } from 'vue';
+import { reactive, onMounted ,toRaw, watch, watchEffect } from 'vue';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
+import { checkSideBarFun } from '../../functions'
 
 const products = reactive({
   list: []
@@ -34,6 +35,10 @@ const asyncGetter = async () => {
 }
 asyncGetter()
 const emitShopCart = defineEmits(['shop-cart'])
+
+onMounted(() => {
+  checkSideBarFun()
+})
 
 </script>
 <template>
