@@ -8,6 +8,7 @@ const props = defineProps({
   description: String,
   type: String,
   addToCart: Boolean | Function,
+  price: Number
 })
 
 const emitShopCart = defineEmits(['shop-cart'])
@@ -21,6 +22,7 @@ const emitShopCart = defineEmits(['shop-cart'])
     <li class="titleLi">{{ props.title }}</li>
     <li>{{ props.description }}</li>
     <li>{{ props.type }}</li>
+    <li>${{ props.price }}</li>
     <!-- <li>{{ props.price }}</li> -->
     <div class="productHover">
       <RouterLink :to="'product/' + props.title">View</RouterLink>

@@ -13,10 +13,10 @@ const products = reactive({
 const images = reactive({
   list: []
 })
-
 const props = defineProps({
   addToCart: Boolean | Function,
 });
+// function to get the all the products with the images from firebase.js file
 const asyncGetter = async () => {
   await getProducts().then((res) => {
     products.list.push(...res)
@@ -33,9 +33,10 @@ const asyncGetter = async () => {
       console.log(err);
     })
 }
+
 asyncGetter()
 const emitShopCart = defineEmits(['shop-cart'])
-
+// when the component is done loading check if the sidebar is still on and disable it
 onMounted(() => {
   checkSideBarFun()
 })
@@ -49,7 +50,7 @@ onMounted(() => {
         <!-- TODO = Render the correct data and clean css -->
         <div class="productWrap" v-for="(product, index) in products.list">
           <Product :id="product.id" :image="product.image" :description="product.description" :title="product.title" :type="product.type"
-            :addToCart="props.addToCart" />
+            :addToCart="props.addToCart" :price="product.price"/>
           <!-- @click="emitShopCart('shop-cart', product.image, product.title)" -->
         </div>
       </div>

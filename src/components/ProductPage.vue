@@ -40,6 +40,7 @@ onMounted(() => {
     <h3>{{ prod.title }}</h3>
     <img class="singleImage" :src="prod.image" :alt="prod.title" srcset="">
     <p>{{ prod.description }}</p>
+    <p>{{ prod.price }}</p>
   </div>
 </template>
 

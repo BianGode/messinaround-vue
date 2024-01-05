@@ -12,7 +12,7 @@ const routes = [
   { path: "/login", component: Login },
   { path: "/register", component: Register },
   { path: '/shop', component: Shop },
-  { path: '/product/:id', component: ProductPageVue,}
+  { path: '/product/:title', component: ProductPageVue,}
   // user dynamic route matching
   // { path: '/users/:id', component: User },
 

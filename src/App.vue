@@ -18,7 +18,7 @@ const auth = getAuth()
 onAuthStateChanged(auth, (user) => {
   if (user) {
     userState.user = user
-    if(user.email == 'admin@admin.admin') {
+    if (user.email == 'admin@admin.admin') {
       admin.value = true
     }
   } else {
@@ -73,66 +73,93 @@ const removeFromCart = (index) => {
       <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
       <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
     </div>
-    <div @click="toggleShoppingCart">
-      <font-awesome-icon class="headCart" icon="fa-solid fa-cart-shopping" />
+    <div class="shopAndUserIconWrap">
+      <div class="cartWrap">
+        <font-awesome-icon @click="toggleShoppingCart" class="headCart" icon="fa-solid fa-cart-shopping" />
+        <div class="countCart" v-if="cartState.products.length <= 9">{{ cartState.products.length }}</div>
+        <div class="countCart" v-if="cartState.products.length > 9">9+</div>
+      </div>
+      <font-awesome-icon class="headProfile" icon="fa-solid fa-user" />
     </div>
-
   </div>
   <!-- Shopping cart -->
   <div class="shoppingCart off">
-    <h3>{{ cartState.products.length }} products</h3>
-    <div class="cart-item" v-if="cartState.products.length > 0" v-for="(prod, inx) in cartState.products">
+    <p class="cartProdCounter"><b>{{ cartState.products.length }} </b>products</p>
+    <div class="cart-item" v-if="cartState.products.length > 0" v-for="(prod, inx) in cartState.products.slice(0, 5)">
       <img :src="prod.img" alt="">
       <p>{{ prod.title }}</p>
-      <font-awesome-icon icon="fa-solid fa-trash" @click="removeFromCart(inx)"/>
+      <font-awesome-icon icon="fa-solid fa-trash" @click="removeFromCart(inx)" />
+    </div>
+    <div class="orderViewAllWrap">
+      <RouterLink class="cartOrderLink" to="/orderPage">Order<p>View All</p></RouterLink>
+      
     </div>
   </div>
 
   <!-- sidebar -->
   <div class="sideBar off">
-    <h3 @click="closeSidebar">X</h3>
+    <font-awesome-icon class="xMark" @click="closeSidebar" icon="fa-solid fa-xmark" />
     <div class="sideBarLinks">
       <RouterLink class="link" to="/">Home</RouterLink>
       <RouterLink class="link" to="/about">about</RouterLink>
       <RouterLink class="link" to="/shop">Shop</RouterLink>
-      <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
       <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
+      <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
     </div>
   </div>
   <div class="backDrop"></div>
 
-  <RouterView :addToCart="addToShoppingCart"/>
+  <RouterView :addToCart="addToShoppingCart" />
+  <footer>
+    Footer IDK
+  </footer>
 </template>
 <style lang="scss" scoped>
 // note to self: create a keyframe for slide in and out sidebar and fix sidebar styling
 // fonts
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600&display=swap');
+
 @keyframes sidebarExpand {
   from {
     width: 0%;
   }
+
   to {
     width: 65%;
   }
 }
+
 @keyframes sidebarContract {
   from {
     width: 65%;
     display: flex;
   }
+
   to {
     display: flex;
     width: 0%;
   }
 }
+
 // animation
 @keyframes expand {
-  from { width: 0;}
-  to {width: 80%}
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 80%
+  }
 }
+
 @keyframes contract {
-  to {width: 0%;}
-  from { width: 80%;}
+  to {
+    width: 0%;
+  }
+
+  from {
+    width: 80%;
+  }
 }
 
 // set fonts for everyting
@@ -141,6 +168,7 @@ const removeFromCart = (index) => {
 }
 
 .Navigation {
+  // z-index: ;
   width: 100%;
   height: 70px;
   background-image: url('./assets/header.jpeg');
@@ -150,13 +178,13 @@ const removeFromCart = (index) => {
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-
   .hamburger {
     height: 20px;
     width: 25px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     .line {
       display: block;
       width: 100%;
@@ -164,8 +192,32 @@ const removeFromCart = (index) => {
       background-color: black;
     }
   }
+
   .link {
     display: none;
+  }
+
+  .shopAndUserIconWrap {
+    display: flex;
+    gap: 1rem;
+    padding-right: 5px;
+    align-items: center;
+    .cartWrap {
+      display: flex;
+      .headCart {}
+
+      .countCart {
+        position: relative;
+        top: -10px;
+        // top: -25px;
+        // left: 1rem;
+        font-size: 10px;
+        padding: 3px;
+        background-color: #006457;
+        border-radius: 15px;
+        text-align: center;
+      }
+    }
   }
 }
 
@@ -181,28 +233,45 @@ const removeFromCart = (index) => {
 
 .sideBar {
   // display: none;
+  z-index: 10;
   width: 65%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: baseline;
   background-color: white;
   position: absolute;
-}
-.sideBar.on {
-  top: 0;
-  left: 0;
-  z-index: 10;
-  transition: left 0.3s ease-in;
-  // animation: sidebarExpand 1s ease-in-out;
+  padding: 2rem 1rem;
+
+  .xMark {
+    padding-bottom: 1rem;
+  }
+
   .sideBarLinks {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    a {
+      color: #8C7404;
+      text-decoration: none;
+    }
   }
 }
-.sideBar.off {
-  left: -65%;
-  transition: left 0.3s ease-in;
+
+.sideBar.on {
+  top: 0;
+  left: 0;
+  transition: left 0.2s ease-in;
+  // animation: sidebarExpand 1s ease-in-out;
 }
+
+.sideBar.off {
+  transition: left 0.2s ease-in;
+  left: -65%;
+}
+
 // mediaQueries for desktop
 @media screen and (min-width: 900px) {
   .Navigation {
@@ -228,31 +297,74 @@ const removeFromCart = (index) => {
 //shoppingCart style
 .shoppingCart {
   position: absolute;
-  background-color: rgba(255, 215, 0, 0.8);
   border-radius: 5px;
   width: 80%;
   left: 10%;
+  padding: 10px 15px;
   display: flex;
   flex-direction: column;
-}
-.shoppingCart.on {
-  top: 80px;
-  transition: top 1s ease-in-out;
+  gap: 1rem;
+  background-color: rgba(0, 87, 82, 0.9);
+
+  .cartProdCounter {
+    color: #f3bf01;
+  }
+
   .cart-item {
     display: flex;
+
     img {
       width: 70px;
     }
   }
 
+  .orderViewAllWrap {
+    display: flex;
+    flex-direction: column;
+    background-color: #d7c346;
+    width: fit-content;
+    align-items: center;
+    // gap: 0px;
+    margin: 0 auto;
+      padding: 10px 15px;
+      .cartOrderLink {
+      color: black;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      margin: 0 auto;
+      border-radius: 5px;
+    }
+
+    p {
+      margin: 0;
+      text-decoration: underline;
+      font-size: 10px;
+    }
+  }
+}
+
+.shoppingCart.on {
+
+  top: 80px;
+  transition: top 1s ease-in-out;
+
 }
 
 .shoppingCart.off {
-  // display: none;
+  display: none;
   // width: 0;
   position: absolute;
-  top: -80px;
-  transition: top 1s ease-in-out;
+  top: -100%;
+  transition: all 1s ease-in-out;
   // animation: contract 0.5s linear;
+}
+
+
+footer {
+  height: 100px;
+  position: static;
+  bottom: 0;
+  border: 4px dashed turquoise;
 }
 </style>
