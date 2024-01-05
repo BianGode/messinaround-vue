@@ -5,6 +5,8 @@ import Login from "../components/pages/Login.vue"
 import Register from "../components/pages/Register.vue"
 import Shop from "../components/pages/Shop.vue"
 import ProductPageVue from "../components/ProductPage.vue";
+import Order from "../components/pages/Order.vue"
+import Admin from "../components/pages/AdminDash.vue"
 
 const routes = [
   { path: "/", component: Home },
@@ -12,7 +14,9 @@ const routes = [
   { path: "/login", component: Login },
   { path: "/register", component: Register },
   { path: '/shop', component: Shop },
-  { path: '/product/:title', component: ProductPageVue,}
+  { path: '/product/:title', component: ProductPageVue,},
+  { path: '/orderPage', component: Order},
+  { path:'/admin', component: Admin}
   // user dynamic route matching
   // { path: '/users/:id', component: User },
 

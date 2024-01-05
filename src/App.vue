@@ -41,11 +41,12 @@ const toggleShoppingCart = () => {
   shoppingcartEl.classList.toggle('off')
 }
 
-const addToShoppingCart = (img, title) => {
-  console.log(img, title);
+const addToShoppingCart = (image, title, price) => {
+  console.log(image);
   cartState.products.push({
-    img: img,
-    title: title
+    image: image,
+    title: title,
+    price: price
   })
 }
 const removeFromCart = (index) => {
@@ -70,6 +71,7 @@ const removeFromCart = (index) => {
       <RouterLink class="link" to="/">Home</RouterLink>
       <RouterLink class="link" to="/about">About</RouterLink>
       <RouterLink class="link" to="/shop">Shop</RouterLink>
+      <RouterLink class="link" v-if="admin == true" to="/admin">Admin</RouterLink>
       <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
       <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
     </div>
@@ -86,13 +88,19 @@ const removeFromCart = (index) => {
   <div class="shoppingCart off">
     <p class="cartProdCounter"><b>{{ cartState.products.length }} </b>products</p>
     <div class="cart-item" v-if="cartState.products.length > 0" v-for="(prod, inx) in cartState.products.slice(0, 5)">
-      <img :src="prod.img" alt="">
-      <p>{{ prod.title }}</p>
+      <div class="imgProdWrap">
+        <img :src="prod.image" alt="">
+        <div>
+          <p>{{ prod.title }}</p>
+          <p>{{ prod.price }}</p>
+        </div>
+      </div>
       <font-awesome-icon icon="fa-solid fa-trash" @click="removeFromCart(inx)" />
     </div>
     <div class="orderViewAllWrap">
-      <RouterLink class="cartOrderLink" to="/orderPage">Order<p>View All</p></RouterLink>
-      
+      <RouterLink class="cartOrderLink" to="/orderPage">Order<p>View All</p>
+      </RouterLink>
+
     </div>
   </div>
 
@@ -109,7 +117,9 @@ const removeFromCart = (index) => {
   </div>
   <div class="backDrop"></div>
 
-  <RouterView :addToCart="addToShoppingCart" />
+  <!-- the view all the pages are being rendered -->
+  <RouterView :addToCart="addToShoppingCart" :products="cartState.products" />
+
   <footer>
     Footer IDK
   </footer>
@@ -178,6 +188,7 @@ const removeFromCart = (index) => {
   align-items: center;
   justify-content: space-between;
   padding: 10px;
+
   .hamburger {
     height: 20px;
     width: 25px;
@@ -202,8 +213,10 @@ const removeFromCart = (index) => {
     gap: 1rem;
     padding-right: 5px;
     align-items: center;
+
     .cartWrap {
       display: flex;
+
       .headCart {}
 
       .countCart {
@@ -312,9 +325,23 @@ const removeFromCart = (index) => {
 
   .cart-item {
     display: flex;
-
-    img {
-      width: 70px;
+    justify-content: space-between;
+    .imgProdWrap {
+      display: flex;
+      img {
+        width: 70px;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        color: #f3bf01;
+        p {
+          margin: 0;
+          text-align: center;
+        }
+      }
     }
   }
 
@@ -326,8 +353,9 @@ const removeFromCart = (index) => {
     align-items: center;
     // gap: 0px;
     margin: 0 auto;
-      padding: 10px 15px;
-      .cartOrderLink {
+    padding: 10px 15px;
+
+    .cartOrderLink {
       color: black;
       text-decoration: none;
       font-weight: 700;
@@ -345,14 +373,12 @@ const removeFromCart = (index) => {
 }
 
 .shoppingCart.on {
-
   top: 80px;
   transition: top 1s ease-in-out;
-
 }
 
 .shoppingCart.off {
-  display: none;
+  //display: none;
   // width: 0;
   position: absolute;
   top: -100%;

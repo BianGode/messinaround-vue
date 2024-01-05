@@ -26,7 +26,7 @@ const emitShopCart = defineEmits(['shop-cart'])
     <!-- <li>{{ props.price }}</li> -->
     <div class="productHover">
       <RouterLink :to="'product/' + props.title">View</RouterLink>
-      <font-awesome-icon class="add-cart" @click="props.addToCart(props.image, props.title)" icon="fa-solid fa-cart-shopping" />
+      <font-awesome-icon class="add-cart" @click="props.addToCart(props.image, props.title, props.price)" icon="fa-solid fa-cart-shopping" />
       <!-- <img :src="faCartShopping"  alt="" srcset=""> -->
     </div>
   </div>
