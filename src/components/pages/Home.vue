@@ -8,13 +8,52 @@ onMounted(() => {
 </script>
 
 <template>
-<h1>Home</h1>
-<img class="bannerImage" src="" alt="">
-<p class="homeInfoText">
-  Welcome to our webshop, where we offer a wide range of speakers and monitors to enhance your audio and visual experience. Whether you're a music enthusiast, a gamer, or a professional in need of high-quality audio and visual equipment, we have the perfect solution for you.
-</p>
+  <div class="homepageWrap">
+    <div class="bannerAndWelcome">
+      <img class="bannerImage" src="../../../public/images/homepage-sale.png" alt="">
+      <p class="homeInfoText">
+        Welcome to our webshop, where we offer a small range of good speakers and monitors to enhance your audio and
+        visual
+        experience.
+      </p>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
+@keyframes wheewhoo {
+  0% {
+    padding: 0px;
+    background-color: black;
+  }
 
+  50% {
+    padding: 50px;
+    background-color: black;
+  }
+
+  100% {
+    padding: 0px;
+    background-color: black;
+  }
+}
+.homepageWrap {
+  padding-top: 1rem;
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .bannerAndWelcome {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .bannerImage {
+      border-radius: 180px;
+      width: 50%;
+      animation: wheewhoo 2s 4 ease-in-out;
+    }
+  }
+}
 </style>

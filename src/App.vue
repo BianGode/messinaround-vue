@@ -31,12 +31,14 @@ const closeSidebar = () => {
   const backDrop = document.querySelector('.backDrop')
 
   sideBar.classList.toggle('on')
+  sideBar.classList.toggle('off')
   backDrop.classList.toggle('on')
 }
 
 const toggleShoppingCart = () => {
   const shoppingcartEl = document.querySelector('.shoppingCart')
   shoppingcartEl.classList.toggle('on')
+  shoppingcartEl.classList.toggle('off')
 }
 
 const addToShoppingCart = (img, title) => {
@@ -77,7 +79,7 @@ const removeFromCart = (index) => {
 
   </div>
   <!-- Shopping cart -->
-  <div class="shoppingCart">
+  <div class="shoppingCart off">
     <h3>{{ cartState.products.length }} products</h3>
     <div class="cart-item" v-if="cartState.products.length > 0" v-for="(prod, inx) in cartState.products">
       <img :src="prod.img" alt="">
@@ -87,7 +89,7 @@ const removeFromCart = (index) => {
   </div>
 
   <!-- sidebar -->
-  <div class="sideBar">
+  <div class="sideBar off">
     <h3 @click="closeSidebar">X</h3>
     <div class="sideBarLinks">
       <RouterLink class="link" to="/">Home</RouterLink>
@@ -102,13 +104,40 @@ const removeFromCart = (index) => {
   <RouterView :addToCart="addToShoppingCart"/>
 </template>
 <style lang="scss" scoped>
+// note to self: create a keyframe for slide in and out sidebar and fix sidebar styling
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600&display=swap');
+@keyframes sidebarExpand {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 65%;
+  }
+}
+@keyframes sidebarContract {
+  from {
+    width: 65%;
+    display: flex;
+  }
+  to {
+    display: flex;
+    width: 0%;
+  }
+}
+// animation
 @keyframes expand {
   from { width: 0;}
   to {width: 80%}
 }
 @keyframes contract {
-  from { width: 80%;}
   to {width: 0%;}
+  from { width: 80%;}
+}
+
+// set fonts for everyting
+* {
+  font-family: 'Libre Franklin', sans-serif;
 }
 
 .Navigation {
@@ -151,26 +180,29 @@ const removeFromCart = (index) => {
 }
 
 .sideBar {
-  display: none;
-}
-
-.sideBar.on {
-  position: absolute;
-  top: 0;
-  left: 0;
+  // display: none;
   width: 65%;
   height: 100%;
   display: flex;
   flex-direction: column;
   background-color: white;
+  position: absolute;
+}
+.sideBar.on {
+  top: 0;
+  left: 0;
   z-index: 10;
-
+  transition: left 0.3s ease-in;
+  // animation: sidebarExpand 1s ease-in-out;
   .sideBarLinks {
     display: flex;
     flex-direction: column;
   }
 }
-
+.sideBar.off {
+  left: -65%;
+  transition: left 0.3s ease-in;
+}
 // mediaQueries for desktop
 @media screen and (min-width: 900px) {
   .Navigation {
@@ -194,16 +226,18 @@ const removeFromCart = (index) => {
 }
 
 //shoppingCart style
-.shoppingCart.on {
-  display: flex;
-  width: 80%;
-  flex-direction: column;
+.shoppingCart {
   position: absolute;
   background-color: rgba(255, 215, 0, 0.8);
   border-radius: 5px;
-  top: 80px;
+  width: 80%;
   left: 10%;
-  animation: expand 0.5s;
+  display: flex;
+  flex-direction: column;
+}
+.shoppingCart.on {
+  top: 80px;
+  transition: top 1s ease-in-out;
   .cart-item {
     display: flex;
     img {
@@ -213,9 +247,12 @@ const removeFromCart = (index) => {
 
 }
 
-.shoppingCart {
-  display: none;
-  width: 0;
-  animation: contract 0.5s linear;
+.shoppingCart.off {
+  // display: none;
+  // width: 0;
+  position: absolute;
+  top: -80px;
+  transition: top 1s ease-in-out;
+  // animation: contract 0.5s linear;
 }
 </style>
