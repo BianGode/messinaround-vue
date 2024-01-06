@@ -7,6 +7,9 @@ import Shop from "../components/pages/Shop.vue"
 import ProductPageVue from "../components/ProductPage.vue";
 import Order from "../components/pages/Order.vue"
 import Admin from "../components/pages/AdminDash.vue"
+import Profile from "../components/pages/Profile.vue"
+import Orders from "../components/pages/Orders.vue"
+import Settings from "../components/pages/Settings.vue"
 
 const routes = [
   { path: "/", component: Home },
@@ -16,7 +19,21 @@ const routes = [
   { path: '/shop', component: Shop },
   { path: '/product/:title', component: ProductPageVue,},
   { path: '/orderPage', component: Order},
-  { path:'/admin', component: Admin}
+  { path:'/admin', component: Admin},
+  { 
+    path: '/profile',
+     component: Profile,
+      children: [
+        {
+          path: "orders",
+          component: Orders
+      },
+      {
+        path: "settings",
+        component: Settings
+      }
+    ]
+    }
   // user dynamic route matching
   // { path: '/users/:id', component: User },
 

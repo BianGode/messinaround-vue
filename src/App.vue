@@ -118,7 +118,8 @@ const removeFromCart = (index) => {
   <div class="backDrop"></div>
 
   <!-- the view all the pages are being rendered -->
-  <RouterView :addToCart="addToShoppingCart" :products="cartState.products" />
+  <RouterView v-if="userState.user" :addToCart="addToShoppingCart" :products="cartState.products" :user="userState.user.email" />
+  <RouterView v-else :addToCart="addToShoppingCart" :products="cartState.products" />
 
   <footer>
     Footer IDK
@@ -385,6 +386,7 @@ const removeFromCart = (index) => {
   transition: all 1s ease-in-out;
   // animation: contract 0.5s linear;
 }
+
 
 footer {
   height: 100px;

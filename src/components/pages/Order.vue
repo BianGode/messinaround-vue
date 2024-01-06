@@ -7,7 +7,7 @@
 import { getAuth } from "firebase/auth";
 import { RouterLink, RouterView } from "vue-router"
 import { addOrder } from '../../firebase'
-
+import router from '../../router/index'
 const props = defineProps({
   products: Array
 })
@@ -21,6 +21,7 @@ const handleOrder = () => {
 
   addOrder(productIDs).then(() => {
     console.log('Added succesfully');
+    router.push("/profile/orders")
   }).catch((err) => {
     console.log(err);
   })
