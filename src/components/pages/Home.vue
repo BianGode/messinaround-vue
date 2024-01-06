@@ -1,9 +1,11 @@
 <script setup>
 import { checkSideBarFun } from '../../functions'
 import { onMounted } from 'vue';
+import { addOrder } from '../../firebase';
 // same onMounted in everypage
 onMounted(() => {
   checkSideBarFun()
+  addOrder()
 })
 </script>
 

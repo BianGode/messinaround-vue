@@ -4,11 +4,28 @@
 <!-- then redirect to profile or shop -->
 <!-- show order in profile page -->
 <script setup>
+import { getAuth } from "firebase/auth";
 import { RouterLink, RouterView } from "vue-router"
+import { addOrder } from '../../firebase'
 
 const props = defineProps({
   products: Array
 })
+const auth = getAuth()
+
+const handleOrder = () => {
+  let productIDs = []
+  props.products.forEach((prod) => {
+    productIDs.push(prod.title)
+  })
+
+  addOrder(productIDs).then(() => {
+    console.log('Added succesfully');
+  }).catch((err) => {
+    console.log(err);
+  })
+}
+
 </script>
 <template>
   <div class="orderPageWrap">
@@ -26,6 +43,8 @@ const props = defineProps({
       <p>Cart is empty</p>
       <RouterLink class="" to="/shop">Go to Shop!</RouterLink>
     </div>
+    <button @click="handleOrder" v-if="auth.currentUser && props.products.length > 0">Order</button>
+    <button v-else><RouterLink to="/login">Can't order yet, First Login</RouterLink></button>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -51,4 +70,5 @@ const props = defineProps({
       }
     }
   }
-}</style>
+}
+</style>

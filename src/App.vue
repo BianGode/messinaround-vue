@@ -386,7 +386,6 @@ const removeFromCart = (index) => {
   // animation: contract 0.5s linear;
 }
 
-
 footer {
   height: 100px;
   position: static;

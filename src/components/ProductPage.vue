@@ -4,6 +4,7 @@ import { getSingleProduct } from '../firebase'
 import { onMounted, reactive } from 'vue';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 import { checkSideBarFun } from '../functions'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const recieviedProd = reactive({
   product: {},
@@ -35,25 +36,27 @@ onMounted(() => {
 
 </script>
 <template>
-  <!-- Here comes the product main page when clicked on the product -->
-  <div v-for="prod in recieviedProd.product" class="singleProdWrap">
-    <h3>{{ prod.title }}</h3>
-    <img class="singleImage" :src="prod.image" :alt="prod.title" srcset="">
-    <p>{{ prod.description }}</p>
-    <p>{{ prod.price }}</p>
-  </div>
+    <!-- Here comes the product main page when clicked on the product -->
+    <div v-for="prod in recieviedProd.product" class="singleProdWrap">
+      <h3>{{ prod.title }}</h3>
+      <img class="singleImage" :src="prod.image" :alt="prod.title" srcset="">
+      <p>{{ prod.description }}</p>
+      <p>${{ prod.price }}</p>
+    </div>
+    <div class="productActions">
+      <button>Add to cart<font-awesome-icon @click="toggleShoppingCart" icon="fa-solid fa-cart-shopping" /></button>
+    </div>
 </template>
 
 <style lang="scss" scoped>
 .singleProdWrap {
-  position: absolute;
-  top: 70px;
-  left: 0;
-  height: calc(100vh - 70px);
+  //height: calc(100vh - 70px);
   display: flex;
   flex-direction: column;
+  align-items: center;
   .singleImage {
     width: 70%;
   }
 }
+
 </style>
