@@ -116,7 +116,6 @@ async function getOrdersProducts(ids) {
     });
   });
   console.log(products);
-
   return products;
 }
 
@@ -158,8 +157,6 @@ async function addOrder(order, userEmail) {
   } else {
     orderRefName.slice(0, orderRefName.length - 2);
   }
-
-  console.log(auth.currentUser.email);
   await setDoc(
     doc(
       db,
@@ -179,6 +176,28 @@ async function getProducts() {
   });
   return tempArr;
   // return an object with the images combined
+}
+
+async function getSpeakers() {
+  let tempArr = [];
+  const productsRef = collection(db, "Products/electronics/speakers");
+  const querySnapshot = await getDocs(productsRef);
+  querySnapshot.forEach((product, inx) => {
+    tempArr.push(product.data());
+    console.log(product.data());
+  });
+  return tempArr;
+}
+
+async function getMonitors() {
+  let tempArr = [];
+  const productsRef = collection(db, "Products/electronics/monitors");
+  const querySnapshot = await getDocs(productsRef);
+  querySnapshot.forEach((product, inx) => {
+    tempArr.push(product.data());
+    console.log(product.data());
+  });
+  return tempArr;
 }
 
 async function getSingleProduct() {
@@ -220,6 +239,8 @@ export {
   register,
   login,
   getProducts,
+  getSpeakers,
+  getMonitors,
   getOrders,
   getSingleProduct,
   addOrder,
