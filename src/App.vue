@@ -1,3 +1,5 @@
+<!-- Important: This design is created mobile-first -->
+
 <script setup>
 import { computed, reactive, ref } from 'vue';
 import { RouterLink, RouterView } from "vue-router"
@@ -53,7 +55,6 @@ const removeFromCart = (index) => {
   const stateProd = cartState.products.splice(index, 1)
   console.log(stateProd);
 }
-
 // still todo
 // https://trello.com/b/mD6RYfMa/webshop-vue
 

@@ -87,7 +87,8 @@ async function getOrdersProducts(ids) {
   ids.forEach((idList, inx) => {
     products.push({
       items: [],
-      order: inx
+      order: inx,
+      date: idList.dateOrdered
     })
     // console.log(idList.productsId);
     idList.productsId.forEach(async (id, index) => {
@@ -99,7 +100,7 @@ async function getOrdersProducts(ids) {
         const productSnap = await getDocs(q);
 
         productSnap.forEach((prod) => {
-          console.log(prod.data());
+          // console.log(prod.data());
           products[inx].items.push(prod.data())
         })
       } else if (id.includes('speaker')) {
@@ -110,12 +111,12 @@ async function getOrdersProducts(ids) {
         
         productSnap.forEach((prod) => {
           console.log(prod.data());
-          products[inx].push(prod.data);
+          products[inx].items.push(prod.data);
         })
       }
     });
   });
-  console.log(products);
+  // console.log(products);
   return products;
 }
 
@@ -216,23 +217,6 @@ async function getSingleProduct() {
   return product;
 }
 
-// async function getStorageImages(res) {
-//   const storage = getStorage();
-//   let tempArr = [...res];
-//   let returnArr = [];
-//   tempArr.forEach((product, inx, arr) => {
-//     const imageRef = ref(storage, "products/" + product.image);
-//     getDownloadURL(imageRef)
-//       .then((resUrl) => {
-//         returnArr.push(resUrl);
-//         // console.log(arr);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   });
-//   return returnArr;
-// }
 
 export {
   auth,

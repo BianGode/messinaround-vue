@@ -49,12 +49,8 @@ const asyncGetter = async () => {
     })
   }
 }
-
-// watch(sort.value, async () => {
-  // return await asyncGetter()
-// })
-// asyncGetter()
 const emitShopCart = defineEmits(['shop-cart'])
+
 // when the component is done loading check if the sidebar is still on and disable it
 onMounted(() => {
   checkSideBarFun()
@@ -75,6 +71,7 @@ const changeSort = (type) => {
       <div class="sort">
         <li @click="changeSort('monitors')">Monitors</li>
         <li @click="changeSort('speakers')">Speakers</li>
+      <!-- For the future add other sort here -->
       </div>
       <div class="row-one">
         <!-- TODO = Render the correct data and clean css -->
