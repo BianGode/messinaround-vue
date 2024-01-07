@@ -76,7 +76,6 @@ async function getOrders() {
     // console.log(doc.data().productsId);
     IDS.orders.push(doc.data());
     // console.log(doc.data());
-
     // getDoc()
   });
   return IDS.orders;
@@ -84,22 +83,41 @@ async function getOrders() {
 
 async function getOrdersProducts(ids) {
   // was working on this function
-  let products = []
-  console.log(ids);
+  let products = [];
   ids.forEach((idList, inx) => {
+    products.push({
+      items: [],
+      order: inx
+    })
+    // console.log(idList.productsId);
     idList.productsId.forEach(async (id, index) => {
-      const productsRef = collection(db, "Products/", id);
-      // const q = query(productsRef, or(where('title', '==', ID)))
-      const productSnap = await getDoc(productsRef);
-      if (productSnap.exists()) {
-        products[inx].push(productSnap.data())
-        console.log("succ");
-      } else {
-        console.log("Does not exist or mistake");
+      if (id.includes("monitor")) {
+        const productsRef = collection(db, "Products/electronics/monitors");
+
+        const q = query(productsRef, where('title', '==', id))
+        
+        const productSnap = await getDocs(q);
+
+        productSnap.forEach((prod) => {
+          console.log(prod.data());
+          products[inx].items.push(prod.data())
+        })
+      } else if (id.includes('speaker')) {
+        const productsRef = collection(db, "Products/electronics/speakers");
+        const q = query(productsRef, where('title', '==', id))
+        
+        const productSnap = await getDocs(q);
+        
+        productSnap.forEach((prod) => {
+          console.log(prod.data());
+          products[inx].push(prod.data);
+        })
       }
     });
   });
-  return products
+  console.log(products);
+
+  return products;
 }
 
 // add an order to the firestore db

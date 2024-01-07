@@ -11,10 +11,13 @@ const orders = reactive([
 onAuthStateChanged(getAuth(), (user) => {
   if (user) {
     getOrders().then((res) => {
-      console.log(res);
       getOrdersProducts(res).then((finalResult) => {
         console.log(finalResult);
+      }).catch((err) => {
+        console.log(err);
       })
+    }).catch((err) => {
+      console.log(err);
     })
 
   } else {

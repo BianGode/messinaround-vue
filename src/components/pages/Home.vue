@@ -5,7 +5,7 @@ import { addOrder } from '../../firebase';
 // same onMounted in everypage
 onMounted(() => {
   checkSideBarFun()
-  addOrder()
+  // addOrder()
 })
 </script>
 

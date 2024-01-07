@@ -81,7 +81,7 @@ const removeFromCart = (index) => {
         <div class="countCart" v-if="cartState.products.length <= 9">{{ cartState.products.length }}</div>
         <div class="countCart" v-if="cartState.products.length > 9">9+</div>
       </div>
-      <font-awesome-icon class="headProfile" icon="fa-solid fa-user" />
+      <RouterLink to="/profile"><font-awesome-icon class="headProfile" icon="fa-solid fa-user" /></RouterLink>
     </div>
   </div>
   <!-- Shopping cart -->

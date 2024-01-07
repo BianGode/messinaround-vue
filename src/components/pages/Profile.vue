@@ -11,8 +11,8 @@ const props = defineProps({
 <template>
   <h1>Hello {{ props.user }}</h1>
   <div class="profileNav">
-    <RouterLink to="orders">Orders</RouterLink>
-    <RouterLink to="settings">Settings</RouterLink>
+    <RouterLink to="/profile/orders">Orders</RouterLink>
+    <RouterLink to="/profile/settings">Settings</RouterLink>
   </div>
   <div>
     
