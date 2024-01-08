@@ -3,8 +3,8 @@ import { onAuthStateChanged, getAuth } from 'firebase/auth';
 import { getProducts, getSpeakers, getMonitors } from '../../firebase';
 import Product from '../Product.vue';
 import ProductPage from '../ProductPage.vue';
-import { reactive, onMounted, toRaw, watch, watchEffect} from 'vue';
-import {ref as reference} from 'vue' 
+import { reactive, onMounted, toRaw, watch, watchEffect } from 'vue';
+import { ref as reference } from 'vue'
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 import { checkSideBarFun } from '../../functions';
 
@@ -20,19 +20,20 @@ const props = defineProps({
 const asyncGetter = async () => {
   if (sort.value == 'monitors') {
     await getMonitors().then((res) => {
-      products.list.push(...res)
-    }).then(() => {
-      products.list.forEach((el, inx) => {
-        const storage = getStorage()
-        getDownloadURL(ref(storage, 'products/' + el.image))
-          .then((url) => {
-            console.log(url);
-            products.list[inx].image = url
-          })
+        products.list.push(...res)
+      }).then(() => {
+        products.list.forEach((el, inx) => {
+          const storage = getStorage()
+          getDownloadURL(ref(storage, 'products/' + el.image))
+            .then((url) => {
+              console.log(url);
+              products.list[inx].image = url
+            })
+        })
       })
-    }).catch((err) => {
-      console.log(err);
-    })
+      .catch((err) => {
+        console.log(err);
+      })
   } else if (sort.value == 'speakers') {
     await getSpeakers().then((res) => {
       products.list.push(...res)
@@ -71,7 +72,7 @@ const changeSort = (type) => {
       <div class="sort">
         <li @click="changeSort('monitors')">Monitors</li>
         <li @click="changeSort('speakers')">Speakers</li>
-      <!-- For the future add other sort here -->
+        <!-- For the future add other sort here -->
       </div>
       <div class="row-one">
         <!-- TODO = Render the correct data and clean css -->

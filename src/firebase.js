@@ -71,11 +71,8 @@ async function getOrders() {
   let IDS = {
     orders: [],
   };
-  let ordersFormatted = {};
   ordersSnapshot.forEach((doc) => {
-    // console.log(doc.data().productsId);
     IDS.orders.push(doc.data());
-    // console.log(doc.data());
     // getDoc()
   });
   return IDS.orders;
@@ -85,6 +82,7 @@ async function getOrdersProducts(ids) {
   // was working on this function
   let products = [];
   ids.forEach((idList, inx) => {
+    // console.log(idList);
     products.push({
       items: [],
       order: inx,
@@ -94,15 +92,16 @@ async function getOrdersProducts(ids) {
     idList.productsId.forEach(async (id, index) => {
       if (id.includes("monitor")) {
         const productsRef = collection(db, "Products/electronics/monitors");
-
         const q = query(productsRef, where('title', '==', id))
-        
-        const productSnap = await getDocs(q);
 
+        const productSnap = await getDocs(q)
+        
         productSnap.forEach((prod) => {
-          // console.log(prod.data());
+          console.log(prod.data())
           products[inx].items.push(prod.data())
+          // console.log(products[inx].items);
         })
+
       } else if (id.includes('speaker')) {
         const productsRef = collection(db, "Products/electronics/speakers");
         const q = query(productsRef, where('title', '==', id))
