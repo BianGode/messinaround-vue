@@ -3,7 +3,7 @@
 <script setup>
 import { computed, reactive, ref } from 'vue';
 import { RouterLink, RouterView } from "vue-router"
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 const active = reactive({
   active: '',
@@ -14,7 +14,7 @@ const userState = reactive({
 const cartState = reactive({
   products: []
 })
-const admin = ref(false)
+// const admin = ref(false)
 
 const auth = getAuth()
 onAuthStateChanged(auth, (user) => {
@@ -55,73 +55,103 @@ const removeFromCart = (index) => {
   const stateProd = cartState.products.splice(index, 1)
   console.log(stateProd);
 }
-// still todo
-// https://trello.com/b/mD6RYfMa/webshop-vue
+
+const shortMessageChange = (mes) => {
+  let shortMessage = document.querySelector('.shortMessage');
+  let message = document.querySelector('.message')
+  closeSidebar();
+  shortMessage.classList.add('on')
+  shortMessage.classList.remove('off')
+  message.textContent = mes
+  setTimeout(() => {
+    shortMessage.classList.remove('on')
+    shortMessage.classList.add('off')
+  }, 2000)
+}
+
+const handleSignOut = () => {
+  shortMessageChange('Signed out succesfully')
+
+  signOut(auth).then(() => {
+    userState.user = null
+  }).catch((err) => {
+    console.log(err);
+  })
+}
 
 </script>
 <template>
-  <div></div>
-  <div class="Navigation">
-    <div class="hamburger" @click="closeSidebar">
-      <span class="line"></span>
-      <span class="line"></span>
-      <span class="line"></span>
-    </div>
-    <h1>Logo</h1>
-    <div class="links">
-      <RouterLink class="link" to="/">Home</RouterLink>
-      <RouterLink class="link" to="/about">About</RouterLink>
-      <RouterLink class="link" to="/shop">Shop</RouterLink>
-      <RouterLink class="link" v-if="admin == true" to="/admin">Admin</RouterLink>
-      <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
-      <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
-    </div>
-    <div class="shopAndUserIconWrap">
-      <div class="cartWrap">
-        <font-awesome-icon @click="toggleShoppingCart" class="headCart" icon="fa-solid fa-cart-shopping" />
-        <div class="countCart" v-if="cartState.products.length <= 9">{{ cartState.products.length }}</div>
-        <div class="countCart" v-if="cartState.products.length > 9">9+</div>
+  <div class="mainWrap">
+    <div></div>
+    <!-- main navbar -->
+    <div class="Navigation">
+      <div class="hamburger" @click="closeSidebar">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
       </div>
-      <RouterLink to="/profile"><font-awesome-icon class="headProfile" icon="fa-solid fa-user" /></RouterLink>
-    </div>
-  </div>
-  <!-- Shopping cart -->
-  <div class="shoppingCart off">
-    <p class="cartProdCounter"><b>{{ cartState.products.length }} </b>products</p>
-    <div class="cart-item" v-if="cartState.products.length > 0" v-for="(prod, inx) in cartState.products.slice(0, 5)">
-      <div class="imgProdWrap">
-        <img :src="prod.image" alt="">
-        <div>
-          <p>{{ prod.title }}</p>
-          <p>{{ prod.price }}</p>
+      <h1>Logo</h1>
+      <div class="links">
+        <RouterLink class="link" to="/">Home</RouterLink>
+        <RouterLink class="link" to="/about">About</RouterLink>
+        <RouterLink class="link" to="/shop">Shop</RouterLink>
+        <RouterLink class="link" v-if="admin == true" to="/admin">Admin</RouterLink>
+        <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
+        <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
+      </div>
+      <div class="shopAndUserIconWrap">
+        <div class="cartWrap">
+          <font-awesome-icon @click="toggleShoppingCart" class="headCart" icon="fa-solid fa-cart-shopping" />
+          <div class="countCart" v-if="cartState.products.length <= 9">{{ cartState.products.length }}</div>
+          <div class="countCart" v-if="cartState.products.length > 9">9+</div>
         </div>
+        <RouterLink v-if="userState.user" to="/profile"><font-awesome-icon class="headProfile" icon="fa-solid fa-user" /></RouterLink>
       </div>
-      <font-awesome-icon icon="fa-solid fa-trash" @click="removeFromCart(inx)" />
     </div>
-    <div class="orderViewAllWrap">
-      <RouterLink class="cartOrderLink" to="/orderPage">Order<p>View All</p>
-      </RouterLink>
 
+    <div class="shortMessage">
+      <p class="message">test message</p>
     </div>
+
+    <!-- Shopping cart -->
+    <div class="shoppingCart off">
+      <p class="cartProdCounter"><b>{{ cartState.products.length }} </b>products</p>
+      <div class="cart-item" v-if="cartState.products.length > 0" v-for="(prod, inx) in cartState.products.slice(0, 5)">
+        <div class="imgProdWrap">
+          <img :src="prod.image" alt="">
+          <div>
+            <p>{{ prod.title }}</p>
+            <p>{{ prod.price }}</p>
+          </div>
+        </div>
+        <font-awesome-icon icon="fa-solid fa-trash" @click="removeFromCart(inx)" />
+      </div>
+      <div class="orderViewAllWrap">
+        <RouterLink class="cartOrderLink" to="/orderPage">Order<p>View All</p>
+        </RouterLink>
+
+      </div>
+    </div>
+
+    <!-- sidebar -->
+    <div class="sideBar off">
+      <font-awesome-icon class="xMark" @click="closeSidebar" icon="fa-solid fa-xmark" />
+      <div class="sideBarLinks">
+        <RouterLink class="link" to="/">Home</RouterLink>
+        <RouterLink class="link" to="/about">about</RouterLink>
+        <RouterLink class="link" to="/shop">Shop</RouterLink>
+        <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
+        <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
+        <button v-if="userState.user" @click="handleSignOut()">Logout</button>
+      </div>
+    </div>
+    <div class="backDrop"></div>
+
+    <!-- the view all the pages are being rendered -->
+    <RouterView v-if="userState.user" :addToCart="addToShoppingCart" :products="cartState.products"
+      :user="userState.user.email" />
+    <RouterView v-else :addToCart="addToShoppingCart" :products="cartState.products" :shortMessageChange="shortMessageChange" />
   </div>
-
-  <!-- sidebar -->
-  <div class="sideBar off">
-    <font-awesome-icon class="xMark" @click="closeSidebar" icon="fa-solid fa-xmark" />
-    <div class="sideBarLinks">
-      <RouterLink class="link" to="/">Home</RouterLink>
-      <RouterLink class="link" to="/about">about</RouterLink>
-      <RouterLink class="link" to="/shop">Shop</RouterLink>
-      <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
-      <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
-    </div>
-  </div>
-  <div class="backDrop"></div>
-
-  <!-- the view all the pages are being rendered -->
-  <RouterView v-if="userState.user" :addToCart="addToShoppingCart" :products="cartState.products" :user="userState.user.email" />
-  <RouterView v-else :addToCart="addToShoppingCart" :products="cartState.products" />
-
   <footer>
     Footer IDK
   </footer>
@@ -179,6 +209,12 @@ const removeFromCart = (index) => {
   font-family: 'Libre Franklin', sans-serif;
 }
 
+.mainWrap {
+  padding-bottom: 100px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 .Navigation {
   // z-index: ;
   width: 100%;
@@ -287,6 +323,34 @@ const removeFromCart = (index) => {
   left: -65%;
 }
 
+// style for alert 
+.shortMessage {
+  width: 80%;
+  display: block;
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  background-color: rgba(161, 161, 62, 0.78);
+  border-radius: 5px;
+  border: 3px solid rgba(118, 118, 66, 0.7);
+  // margin: 0 auto;
+}
+
+.shortMessage.on {
+  top: 80px;
+  height: 50px;
+  transition: all 0.2s ease-in-out;
+}
+
+.shortMessage.off {
+  // display: none;
+  top: -80px;
+  height: 0;
+  transition: all 0.2s ease-in-out;
+}
+
 // mediaQueries for desktop
 @media screen and (min-width: 900px) {
   .Navigation {
@@ -328,17 +392,21 @@ const removeFromCart = (index) => {
   .cart-item {
     display: flex;
     justify-content: space-between;
+
     .imgProdWrap {
       display: flex;
+
       img {
         width: 70px;
       }
+
       div {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
         color: #f3bf01;
+
         p {
           margin: 0;
           text-align: center;
@@ -391,8 +459,9 @@ const removeFromCart = (index) => {
 
 footer {
   height: 100px;
-  position: static;
-  bottom: 0;
+  // position: absolute;
+  // bottom: 0;
+  margin-top: auto;
   border: 4px dashed turquoise;
 }
 </style>

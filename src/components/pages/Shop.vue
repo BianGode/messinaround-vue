@@ -70,8 +70,8 @@ const changeSort = (type) => {
     <h1>Shop</h1>
     <div class="shop">
       <div class="sort">
-        <li @click="changeSort('monitors')">Monitors</li>
-        <li @click="changeSort('speakers')">Speakers</li>
+        <li @click="changeSort('monitors')" :class="sort == 'monitors' ? 'bold' : ''">Monitors</li>
+        <li @click="changeSort('speakers')" :class="sort == 'speakers' ? 'bold' : ''">Speakers</li>
         <!-- For the future add other sort here -->
       </div>
       <div class="row-one">
@@ -108,6 +108,22 @@ const changeSort = (type) => {
       img {
         width: 300px;
         margin: 0 auto;
+      }
+    }
+  }
+}
+
+.shopWrap {
+  .shop {
+    .sort {
+      display: flex;
+      gap: 1rem;
+      li {
+        list-style-type: none;
+        color: rgb(25, 68, 25);
+      }
+      .bold {
+        font-weight: 700;
       }
     }
   }

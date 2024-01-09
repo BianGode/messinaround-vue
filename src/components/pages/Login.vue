@@ -1,10 +1,29 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { login } from '../../firebase';
+import { checkSideBarFun } from '../../functions';
+import router from '../../router/index'
 
 const email = ref('')
 const pass = ref('')
 
+const props = defineProps({
+  shortMessageChange: Function || null
+})
+
+const handleLogin = (email, pass) => {
+  login(email, pass).then(() => {
+    props.shortMessageChange('Login Completed')
+    // setTimeout(() => {
+      router.push('/')      
+    // }, 1000)
+  }).catch((err) => {
+    console.log(err);
+  })
+}
+onMounted(() => {
+  checkSideBarFun()
+})
 </script>
 
 <template>
@@ -16,7 +35,7 @@ const pass = ref('')
       <p>Password</p>
       <input v-model="pass" type="password">
     </div>
-    <button @click="login(email, pass)">Login</button>
+    <button @click="handleLogin(email, pass)">Login</button>
   </div>
 </template>
 

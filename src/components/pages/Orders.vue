@@ -48,7 +48,7 @@ onAuthStateChanged(getAuth(), (user) => {
 <template>
   <div class="accountOrders">
     <h1>orders</h1>
-    <p v-if="orders.list.length > 0">{{ orders.list[0] }}</p>
+    <p v-if="orders.list[0].item.length > 0">{{ orders.list[0] }}</p>
     <div v-if="orders.list.length > 0" v-for="order in orders.list">
     </div>
   </div>
