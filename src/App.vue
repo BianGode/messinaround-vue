@@ -43,6 +43,7 @@ const toggleShoppingCart = () => {
   shoppingcartEl.classList.toggle('off')
 }
 
+
 const addToShoppingCart = (image, title, price) => {
   console.log(image);
   cartState.products.push({
@@ -105,7 +106,8 @@ const handleSignOut = () => {
           <div class="countCart" v-if="cartState.products.length <= 9">{{ cartState.products.length }}</div>
           <div class="countCart" v-if="cartState.products.length > 9">9+</div>
         </div>
-        <RouterLink v-if="userState.user" to="/profile"><font-awesome-icon class="headProfile" icon="fa-solid fa-user" /></RouterLink>
+        <RouterLink v-if="userState.user" to="/profile"><font-awesome-icon class="headProfile" icon="fa-solid fa-user" />
+        </RouterLink>
       </div>
     </div>
 
@@ -148,12 +150,22 @@ const handleSignOut = () => {
     <div class="backDrop"></div>
 
     <!-- the view all the pages are being rendered -->
-    <RouterView v-if="userState.user" :addToCart="addToShoppingCart" :products="cartState.products"
+    <RouterView v-if="userState.user" :addToCart="addToShoppingCart" :toggleShoppingCart="toggleShoppingCart" :products="cartState.products"
       :user="userState.user.email" />
-    <RouterView v-else :addToCart="addToShoppingCart" :products="cartState.products" :shortMessageChange="shortMessageChange" />
+    <RouterView v-else :addToCart="addToShoppingCart" :toggleShoppingCart="toggleShoppingCart" :products="cartState.products"
+      :shortMessageChange="shortMessageChange" />
   </div>
   <footer>
-    Footer IDK
+    <div class="footerInfo">
+      <div class="phoneWrap">
+        <font-awesome-icon icon="fa-solid fa-phone" />
+      </div>
+      <p>06 xxxxxxxx</p>
+      <div class="envelopeWrap">
+        <font-awesome-icon icon="fa-solid fa-envelope" />
+      </div>
+      <p>webshop@contact.info</p>
+    </div>
   </footer>
 </template>
 <style lang="scss" scoped>
@@ -215,8 +227,8 @@ const handleSignOut = () => {
   display: flex;
   flex-direction: column;
 }
+
 .Navigation {
-  // z-index: ;
   width: 100%;
   height: 70px;
   background-image: url('./assets/header.jpeg');
@@ -459,9 +471,21 @@ const handleSignOut = () => {
 
 footer {
   height: 100px;
-  // position: absolute;
-  // bottom: 0;
   margin-top: auto;
-  border: 4px dashed turquoise;
-}
-</style>
+  background-color: #006457;
+  .footerInfo {
+    width: 60%;
+    display: grid;
+    grid-template-columns: auto auto;
+    .phoneWrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .envelopeWrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}</style>

@@ -71,7 +71,6 @@ onMounted(() => {
 
     .bannerImage {
       width: 60%;
-      // font-weight: 700;
       padding: 20px;
       animation: wheewhoo 1.5s 1 ease-in-out;
       // border: 5px solid #005653;
@@ -121,6 +120,12 @@ onMounted(() => {
       transition: all 0.2s ease-in-out;
       border-radius: 10px;
     }
+  }
+}
+@media only screen and (min-width: 900px) {
+  .homepageWrap {
+    width: 50%;
+    margin: 0 auto;
   }
 }
 </style>

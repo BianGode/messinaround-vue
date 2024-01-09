@@ -10,6 +10,9 @@ const recieviedProd = reactive({
   product: {},
 });
 
+const props = defineProps({
+  addToCart: Function
+})
 const singleProduct = async () => {
   const storage = getStorage()
   await getSingleProduct().then((res) => {
@@ -36,16 +39,16 @@ onMounted(() => {
 
 </script>
 <template>
-    <!-- Here comes the product main page when clicked on the product -->
-    <div v-for="prod in recieviedProd.product" class="singleProdWrap">
-      <h3>{{ prod.title }}</h3>
-      <img class="singleImage" :src="prod.image" :alt="prod.title" srcset="">
-      <p>{{ prod.description }}</p>
-      <p>${{ prod.price }}</p>
-    </div>
+  <!-- Here comes the product main page when clicked on the product -->
+  <div v-for="prod in recieviedProd.product" class="singleProdWrap">
+    <h3>{{ prod.title }}</h3>
+    <img class="singleImage" :src="prod.image" :alt="prod.title" srcset="">
+    <p>{{ prod.description }}</p>
+    <p>${{ prod.price }}</p>
     <div class="productActions">
-      <button>Add to cart<font-awesome-icon @click="toggleShoppingCart" icon="fa-solid fa-cart-shopping" /></button>
+      <button @click="props.addToCart(prod.image, prod.title, prod.price)">Add to cart<font-awesome-icon icon="fa-solid fa-cart-shopping" /></button>
     </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -54,9 +57,33 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .singleImage {
     width: 70%;
   }
 }
 
+.productActions {
+  button {
+    background-color: white;
+    border: #006457 2px solid;
+    color: #006457;
+    transition: all 0.2s ease;
+    padding: 5px 10px;
+    font-size: 1rem;
+  }
+  button:hover {
+    background-color: #006457;
+    border: #006457 2px solid;
+    color: white;
+    transition: all 0.2s ease;
+  }
+}
+@media only screen and (min-width: 900px) {
+  .singleProdWrap {
+    width: 50%;
+    margin: 0 auto;
+    
+  }
+}
 </style>

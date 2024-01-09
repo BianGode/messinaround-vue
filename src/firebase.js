@@ -74,6 +74,7 @@ async function getOrders() {
   ordersSnapshot.forEach((doc) => {
     IDS.orders.push(doc.data());
     // getDoc()
+    // console.log(doc.data());
   });
   return IDS.orders;
 }
@@ -82,6 +83,7 @@ async function getOrdersProducts(ids) {
   // was working on this function
   let products = [];
   ids.forEach((idList, inx) => {
+    console.log(idList);
     products.push({
       items: [],
       order: inx,
@@ -98,7 +100,6 @@ async function getOrdersProducts(ids) {
         productSnap.forEach((prod) => {
           console.log(prod.data())
           products[inx].items.push(prod.data())
-          console.log(products[inx].items);
         })
       } else if (id.includes('speaker')) {
         const productsRef = collection(db, "Products/electronics/speakers");

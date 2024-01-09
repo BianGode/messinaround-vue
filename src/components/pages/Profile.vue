@@ -16,10 +16,20 @@ const props = defineProps({
   </div>
   <div>
     
-    <RouterView/>
+    <RouterView v-if="props.user" :user="props.user"/>
   </div>
 </template>
 
 <style lang="scss" scoped>
-
+.profileNav {
+  display: flex;
+  background-color: rgb(41, 149, 48);
+  width: fit-content;
+  padding: 10px 20px;
+  gap: 1rem;
+  a {
+    text-decoration: none;
+    color: white
+  }
+}
 </style>

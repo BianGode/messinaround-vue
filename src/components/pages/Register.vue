@@ -1,15 +1,24 @@
 <script setup>
 import { ref } from 'vue';
 import { register } from '../../firebase';
-
+import router from '../../router/index'
 
 const email = ref('')
 const pass = ref('')
 const secondPass = ref('')
 
+const props = defineProps({
+  shortMessageChange: Function || null
+})
+
 function handleRegister()  {
   if (pass.value == secondPass.value) {
-    register(email.value, pass.value)
+    register(email.value, pass.value).then(() => {
+    props.shortMessageChange('Login Completed')
+      router.push('/')      
+  }).catch((err) => {
+    console.log(err);
+  })
   } else {
     alert('password does not match')
   }

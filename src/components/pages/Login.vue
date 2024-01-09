@@ -61,6 +61,6 @@ onMounted(() => {
   }
 }
 @media only screen and (min-width: 900px) {
-   
+  //  desktop style here
 }
 </style>

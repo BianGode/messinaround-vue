@@ -1,8 +1,6 @@
 <script setup>
-import { onAuthStateChanged, getAuth } from 'firebase/auth';
 import { getProducts, getSpeakers, getMonitors } from '../../firebase';
 import Product from '../Product.vue';
-import ProductPage from '../ProductPage.vue';
 import { reactive, onMounted, toRaw, watch, watchEffect } from 'vue';
 import { ref as reference } from 'vue'
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
@@ -17,6 +15,7 @@ const props = defineProps({
 });
 
 // function to get the all the products with the images from firebase.js file
+// sorry a bit of a mess
 const asyncGetter = async () => {
   if (sort.value == 'monitors') {
     await getMonitors().then((res) => {
@@ -96,15 +95,15 @@ const changeSort = (type) => {
     display: grid;
     width: fit-content;
     margin: 0 auto;
-    grid-template-columns: 50% 50%;
-
+    grid-template-columns: 45% 45%;
+    gap: 1rem;
     .productWrap {
       width: 100%;
       // height: 500px;
       text-align: center;
-      border: 1px solid black;
       border-radius: 10px;
-
+      background-color: rgb(236, 255, 236);
+      padding: 5px;
       img {
         width: 300px;
         margin: 0 auto;
@@ -118,6 +117,10 @@ const changeSort = (type) => {
     .sort {
       display: flex;
       gap: 1rem;
+      padding: 10px 20px;
+      background-color: rgb(41, 149, 48);
+      width: fit-content;
+      margin-left: 1rem;
       li {
         list-style-type: none;
         color: rgb(25, 68, 25);

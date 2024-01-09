@@ -1,6 +1,6 @@
 <template>
   <div>
-    About
+    <!-- Here some generated sample text -->
   </div>
 </template>
 
