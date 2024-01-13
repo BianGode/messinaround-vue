@@ -14,23 +14,30 @@ const orders = reactive({
 const storage = getStorage()
 const user = ref(false)
 
-const asyncGetter = async () => {
-  await getOrders()
-    .then((res) => {
+  getOrders().then((res) => {
       getOrdersProducts(res)
-        .then((finalResult) => {
-          orders.list.push(...finalResult)
+        .then( async (finalResult) => {
+          console.log(finalResult);
+          orders.list.push(finalResult)
+        }).then(() => {
           // get the images and assign the correct image to the correct item
-        })
-        .then(() => {
+          console.log(orders.list[0]);
+
           for (let y = 0; y < orders.list.length; y++) {
+            console.log(orders.list[0].items);
+            
             for (let i = 0; i < orders.list[y].items.length; i++) {
+              console.log('i = ' + i);
               getDownloadURL(ref(storage, 'products/' + orders.list[y].items[i].image))
                 .then((url) => {
-                  console.log(url);
-                  orders.list[y].items[i].image = url
+                    orders.list[y].items[i].image = url
+                }).catch((err) => {
+                    console.log(url);
+                  console.log(err);
                 })
             }
+
+
           }
         })
         .catch((err) => {
@@ -40,40 +47,21 @@ const asyncGetter = async () => {
     .catch((err) => {
       console.log(err);
     })
-}
 
-// onAuthStateChanged(getAuth(), (user) => {
-//   if (user) {
-//     asyncGetter()
-//   } else {
-//     console.log('not logged in yet');
-//   }
-// })
 
-onMounted(() => {
-  if (props.user) {
-    asyncGetter()
-  }
-})
-
-watch(
-  () => orders.list,
-  () => {
-    console.log('test');
-  }
-)
+// asyncGetter()
 </script>
 <template>
   <div class="accountOrders">
     <h1>orders</h1>
     <!-- Was busy with rendering the order per user but did not have time for it yet -->
-    <p v-if="orders.list">{{ orders.list[0] }}</p>
-      <div v-if="orders.list.length > 0" v-for="order in orders.list">
-        <p>{{ order.date }}</p>
-        <div v-if="order.items" v-for="product in order.items">
-          <p>{{ product.title }}</p>
-        </div>
+    <p v-if="orders.list">{{ orders.list }}</p>
+    <div v-if="orders.list.length > 0" v-for="order in orders.list">
+      <p>{{ order.date }}</p>
+      <div v-if="order.items" v-for="product in order.items">
+        <p>{{ product.title }}</p>
       </div>
+    </div>
   </div>
 </template>
 

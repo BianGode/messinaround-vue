@@ -131,7 +131,6 @@ const handleSignOut = () => {
       <div class="orderViewAllWrap">
         <RouterLink class="cartOrderLink" to="/orderPage">Order<p>View All</p>
         </RouterLink>
-
       </div>
     </div>
 
@@ -266,8 +265,6 @@ const handleSignOut = () => {
 
     .cartWrap {
       display: flex;
-
-      .headCart {}
 
       .countCart {
         position: relative;

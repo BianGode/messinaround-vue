@@ -82,7 +82,7 @@ async function getOrders() {
 async function getOrdersProducts(ids) {
   // was working on this function
   let products = [];
-  ids.forEach((idList, inx) => {
+  await ids.forEach((idList, inx) => {
     console.log(idList);
     products.push({
       items: [],
@@ -98,7 +98,6 @@ async function getOrdersProducts(ids) {
         const productSnap = await getDocs(q)
         
         productSnap.forEach((prod) => {
-          console.log(prod.data())
           products[inx].items.push(prod.data())
         })
       } else if (id.includes('speaker')) {
