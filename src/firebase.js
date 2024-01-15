@@ -78,43 +78,60 @@ async function getOrders() {
   });
   return IDS.orders;
 }
+// https://codeburst.io/javascript-async-await-with-foreach-b6ba62bbf404
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
+  }
+}
 
 async function getOrdersProducts(ids) {
   // was working on this function
   let products = [];
-  await ids.forEach((idList, inx) => {
+  let promises = [];
+
+  asyncForEach(ids, async (idList, inx) => {
     console.log(idList);
     products.push({
       items: [],
       order: inx,
-      date: idList.dateOrdered
-    })
+      date: idList.dateOrdered,
+    });
     // console.log(idList.productsId);
-    idList.productsId.forEach(async (id, index) => {
-      if (id.includes("monitor")) {
+    // idList.productsId.forEach((id, index) => {
+    for (let index = 0; index < idList.productsId.length; index++) {
+      if (idList.productsId[index].includes("monitor")) {
         const productsRef = collection(db, "Products/electronics/monitors");
-        const q = query(productsRef, where('title', '==', id))
+        const q = query(productsRef, where("title", "==", idList.productsId[index]));
 
-        const productSnap = await getDocs(q)
-        
+        const productSnap = await getDocs(q);
+
+        // promises.push(getDocs(q));
+
         productSnap.forEach((prod) => {
           products[inx].items.push(prod.data())
         })
-      } else if (id.includes('speaker')) {
+      } else if (idList.productsId[index].includes("speaker")) {
         const productsRef = collection(db, "Products/electronics/speakers");
-        const q = query(productsRef, where('title', '==', id))
-        
+        const q = query(productsRef, where("title", "==", idList.productsId[index]));
+
         const productSnap = await getDocs(q);
-        
+
+        // promises.push(getDocs(q));
+
         productSnap.forEach((prod) => {
           console.log(prod.data());
           products[inx].items.push(prod.data);
         })
       }
-    });
+    }
+    // });
   });
+  return products
   // console.log(products);
-  return products;
+  // Promise.all(promises).then(() => {
+  // return promises;
+  // })
 }
 
 // add an order to the firestore db
@@ -213,7 +230,6 @@ async function getSingleProduct() {
   });
   return product;
 }
-
 
 export {
   auth,

@@ -3,7 +3,7 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getOrders, getOrdersProducts } from '../../firebase'
 import { onMounted, reactive, watch } from 'vue';
-import { getStorage, getDownloadURL, ref } from 'firebase/storage';
+import { getStorage, getDownloadURL, ref, list } from 'firebase/storage';
 
 const props = defineProps({
   user: String || null
@@ -14,39 +14,35 @@ const orders = reactive({
 const storage = getStorage()
 const user = ref(false)
 
-  getOrders().then((res) => {
-      getOrdersProducts(res)
-        .then( async (finalResult) => {
-          console.log(finalResult);
-          orders.list.push(finalResult)
+getOrders()
+  .then((res) => {
+    getOrdersProducts(res)
+      .then((finalResult) => {
+        orders.list.push(...finalResult)
         }).then(() => {
           // get the images and assign the correct image to the correct item
-          console.log(orders.list[0]);
-
           for (let y = 0; y < orders.list.length; y++) {
-            console.log(orders.list[0].items);
-            
+            console.log(y);
             for (let i = 0; i < orders.list[y].items.length; i++) {
               console.log('i = ' + i);
               getDownloadURL(ref(storage, 'products/' + orders.list[y].items[i].image))
                 .then((url) => {
                     orders.list[y].items[i].image = url
+                    console.log(orders.list[y].items[i].image);
                 }).catch((err) => {
                     console.log(url);
                   console.log(err);
                 })
             }
-
-
           }
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 
 
 // asyncGetter()
