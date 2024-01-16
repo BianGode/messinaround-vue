@@ -106,7 +106,7 @@ const handleSignOut = () => {
           <div class="countCart" v-if="cartState.products.length <= 9">{{ cartState.products.length }}</div>
           <div class="countCart" v-if="cartState.products.length > 9">9+</div>
         </div>
-        <RouterLink v-if="userState.user" to="/profile"><font-awesome-icon class="headProfile" icon="fa-solid fa-user" />
+        <RouterLink v-if="userState.user" to="/profile/orders"><font-awesome-icon class="headProfile" icon="fa-solid fa-user" />
         </RouterLink>
       </div>
     </div>
@@ -312,10 +312,27 @@ const handleSignOut = () => {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
-
     a {
       color: #8C7404;
       text-decoration: none;
+    }
+    button {
+      background-color: white;
+      border: 2px solid rgb(25, 68, 25);
+      border-radius: 5px;
+      color: rgb(25, 68, 25);
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      padding: 5px 10px;
+      transition: all 0.2s ease;
+      font-weight: 700;
+    }
+    button:hover {
+      transform: scale(1.1);
+      background-color: rgb(25, 68, 25);
+      color: white;
+      transition: all 0.2s ease;
     }
   }
 }

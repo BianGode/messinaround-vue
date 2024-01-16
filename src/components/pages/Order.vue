@@ -2,9 +2,12 @@
 import { getAuth } from "firebase/auth";
 import { RouterLink, RouterView } from "vue-router"
 import { addOrder } from '../../firebase'
+import { checkSideBarFun } from '../../functions'
 import router from '../../router/index'
+import { onMounted } from "vue";
 const props = defineProps({
-  products: Array
+  products: Array,
+  user: String
 })
 const auth = getAuth()
 
@@ -22,6 +25,10 @@ const handleOrder = () => {
   })
 }
 
+onMounted(() => {
+  checkSideBarFun()
+  // addOrder()
+})
 </script>
 <template>
   <div class="orderPageWrap">
@@ -33,12 +40,15 @@ const handleOrder = () => {
         <p>{{ prod.price }}</p>
       </div>
     </div>
-    <div v-else>
+    <div class="cartEmpty" v-else>
       <p>Cart is empty</p>
-      <RouterLink class="" to="/shop">Go to Shop!</RouterLink>
+      <RouterLink class="cartEmptyBtn" to="/shop">Go to Shop!</RouterLink>
+      <RouterLink v-if="props.user" class="cartEmptyBtn" to="/login">Or Login</RouterLink>
     </div>
     <button @click="handleOrder" v-if="auth.currentUser && props.products.length > 0">Order</button>
-    <button v-else><RouterLink to="/login">Can't order yet, First Login</RouterLink></button>
+    <!-- <button v-else>
+      <RouterLink to="/login">Can't order yet, First Login</RouterLink>
+    </button> -->
   </div>
 </template>
 <style lang="scss" scoped>
@@ -64,5 +74,16 @@ const handleOrder = () => {
       }
     }
   }
-}
-</style>
+
+  .cartEmpty {
+    .cartEmptyBtn {
+      background-color:rgb(130, 203, 135);
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    p, a {
+      color: black;
+      text-decoration: none;
+    }
+  }
+}</style>

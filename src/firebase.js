@@ -90,8 +90,9 @@ async function getOrdersProducts(ids) {
   let products = [];
   let promises = [];
 
-  asyncForEach(ids, async (idList, inx) => {
-    console.log(idList);
+  // ids.forEach( async (idList, inx) => {
+    for(const [inx, idList] of ids.entries()) {
+    // console.log(idList);
     products.push({
       items: [],
       order: inx,
@@ -102,36 +103,42 @@ async function getOrdersProducts(ids) {
     for (let index = 0; index < idList.productsId.length; index++) {
       if (idList.productsId[index].includes("monitor")) {
         const productsRef = collection(db, "Products/electronics/monitors");
-        const q = query(productsRef, where("title", "==", idList.productsId[index]));
+        const q = query(
+          productsRef,
+          where("title", "==", idList.productsId[index])
+        );
 
         const productSnap = await getDocs(q);
 
-        // promises.push(getDocs(q));
-
-        productSnap.forEach((prod) => {
-          products[inx].items.push(prod.data())
-        })
+            productSnap.forEach((prod) => {
+              products[inx].items.push(prod.data());
+            })
+        // productSnap.forEach((prod) => {
+        //   products[inx].items.push(prod.data())
+        // })
       } else if (idList.productsId[index].includes("speaker")) {
         const productsRef = collection(db, "Products/electronics/speakers");
-        const q = query(productsRef, where("title", "==", idList.productsId[index]));
+        const q = query(
+          productsRef,
+          where("title", "==", idList.productsId[index])
+        );
 
         const productSnap = await getDocs(q);
 
-        // promises.push(getDocs(q));
+          productSnap.forEach((prod) => {
+            products[inx].items.push(prod.data());
+          })
 
-        productSnap.forEach((prod) => {
-          console.log(prod.data());
-          products[inx].items.push(prod.data);
-        })
+        // productSnap.forEach((prod) => {
+        //   console.log(prod.data());
+        //   products[inx].items.push(prod.data);
+        // })
       }
     }
     // });
-  });
-  return products
-  // console.log(products);
-  // Promise.all(promises).then(() => {
-  // return promises;
-  // })
+  };
+  // return products
+  return products;
 }
 
 // add an order to the firestore db

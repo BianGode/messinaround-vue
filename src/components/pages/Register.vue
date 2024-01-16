@@ -1,7 +1,9 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { register } from '../../firebase';
+import { checkSideBarFun } from '../../functions'
 import router from '../../router/index'
+
 
 const email = ref('')
 const pass = ref('')
@@ -9,6 +11,11 @@ const secondPass = ref('')
 
 const props = defineProps({
   shortMessageChange: Function || null
+})
+
+onMounted(() => {
+  checkSideBarFun()
+  // addOrder()
 })
 
 function handleRegister()  {

@@ -88,6 +88,7 @@ const changeSort = (type) => {
 <style lang="scss">
 .productWrap {
   text-align: center;
+
 }
 
 @media only screen and (min-width: 900px) {
@@ -118,7 +119,7 @@ const changeSort = (type) => {
       display: flex;
       gap: 1rem;
       padding: 10px 20px;
-      background-color: rgb(41, 149, 48);
+      background-color: rgb(130, 203, 135);
       width: fit-content;
       margin-left: 1rem;
       li {

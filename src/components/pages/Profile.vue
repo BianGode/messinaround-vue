@@ -1,10 +1,16 @@
 <script setup>
 import { getAuth } from 'firebase/auth';
+import { checkSideBarFun } from '../../functions'
+import { onMounted } from "vue";
 
 const auth = getAuth()
 
 const props = defineProps({
   user: String | null,
+})
+onMounted(() => {
+  checkSideBarFun()
+  // addOrder()
 })
 </script>
 
