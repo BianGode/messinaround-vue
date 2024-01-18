@@ -2,7 +2,7 @@
 import { getAuth } from "firebase/auth";
 import { RouterLink, RouterView } from "vue-router"
 import { addOrder } from '../../firebase'
-import { checkSideBarFun } from '../../functions'
+import { checkSideBarFun, toggleShoppingCart } from '../../functions'
 import router from '../../router/index'
 import { onMounted } from "vue";
 const props = defineProps({
@@ -38,6 +38,7 @@ const handleOrder = () => {
 
 onMounted(() => {
   checkSideBarFun()
+  toggleShoppingCart()
   // addOrder()
 })
 </script>
@@ -49,6 +50,7 @@ onMounted(() => {
         <img :src="prod.image" alt="">
         <h3>{{ prod.title }}</h3>
         <p>{{ prod.price }}</p>
+        <font-awesome-icon> <!-- Delete--> </font-awesome-icon>
       </div>
     </div>
     <div class="cartEmpty" v-else>

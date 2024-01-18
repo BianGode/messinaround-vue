@@ -18,9 +18,8 @@ function asyncGetter() {
   getOrders().then((res) => {
     getOrdersProducts(res).then((finalResult) => {
       orders.list.push(...finalResult)
-
       for (let y = 0; y < finalResult.length; y++) {
-        
+
         for (let i = 0; i < finalResult[y].items.length; i++) {
           console.log('i = ' + i);
           getDownloadURL(ref(storage, 'products/' + finalResult[y].items[i].image))
@@ -33,9 +32,10 @@ function asyncGetter() {
         }
       }
       // console.log(finalResult);
+    }).finally(() => {
+      document.querySelectorAll('.orderProducts')[0].classList.toggle('on')
+
     })
-  }).then(() => {
-    // get the images and assign the correct image to the correct item
   })
     .catch((err) => {
       console.log(err);
@@ -46,6 +46,12 @@ function asyncGetter() {
 }
 
 asyncGetter()
+
+const openOrder = () => {
+  const orderProducts = document.querySelector('.orderProducts')
+  orderProducts.classList.toggle('on')
+}
+
 </script>
 <template>
   <div class="accountOrders">
@@ -53,11 +59,12 @@ asyncGetter()
     <div class="ordersWrap">
       <!-- Was busy with rendering the order per user but did not have time for it yet -->
       <div class="order" v-if="orders.list.length > 0" v-for="order in orders.list">
-        <div>
-        <h3>{{ order.date }}</h3>
-        <h3>{{ order.fullPrice }}</h3>
-      </div>
-        <div class="orderProducts">
+        <div class="orderInfo">
+          <h3>{{ order.date }}</h3>
+          <h3>$ {{ order.fullPrice }}</h3>
+          <font-awesome-icon icon="fa-solid fa-angle-down" @click="openOrder()" />
+        </div>
+        <div class="orderProducts off">
           <div v-if="order.items" class="orderProduct" v-for="product in order.items">
             <img :src="product.image" alt="" srcset="">
             <p>{{ product.title }}</p>
@@ -73,18 +80,35 @@ asyncGetter()
 .accountOrders {
   .ordersWrap {
     display: flex;
-    flex-direction: column;
     justify-content: center;
+
     .order {
-      .orderProducts {
+      flex-direction: column;
+      width: 100%;
+
+      .orderInfo {
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      // animation for on off order
+      .orderProducts.on {
+        transform: scaleY(1);
+      }
+      .orderProducts {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
+
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 0.26s ease;
         .orderProduct {
           display: flex;
           justify-content: space-between;
           align-items: center;
+
           img {
             width: 100px;
           }
@@ -93,5 +117,4 @@ asyncGetter()
 
     }
   }
-}
-</style>
+}</style>

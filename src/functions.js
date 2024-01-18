@@ -18,5 +18,11 @@ const calculatePrice = (arr) => {
     return fullPrice;
 }
 
+const toggleShoppingCart = () => {
+  const shoppingcartEl = document.querySelector('.shoppingCart')
+  shoppingcartEl.classList.toggle('on')
+  shoppingcartEl.classList.toggle('off')
+}
 
-export { checkSideBarFun, calculatePrice }
+
+export { checkSideBarFun, calculatePrice, toggleShoppingCart }
