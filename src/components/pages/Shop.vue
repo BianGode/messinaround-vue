@@ -4,7 +4,7 @@ import Product from '../Product.vue';
 import { reactive, onMounted, toRaw, watch, watchEffect } from 'vue';
 import { ref as reference } from 'vue'
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
-import { checkSideBarFun } from '../../functions';
+import { checkSideBarFun, toggleShoppingCart } from '../../functions';
 
 const products = reactive({
   list: []
@@ -66,7 +66,7 @@ const changeSort = (type) => {
 </script>
 <template>
   <div class="shopWrap">
-    <h1>Shop</h1>
+    <h3>In search for a nice screen or a good sound system?</h3>
     <div class="shop">
       <div class="sort">
         <li @click="changeSort('monitors')" :class="sort == 'monitors' ? 'bold' : ''">Monitors</li>
@@ -114,6 +114,13 @@ const changeSort = (type) => {
 }
 
 .shopWrap {
+  // style the top h3
+  h3 {
+    color: rgb(26, 86, 41);
+    margin: 10px auto;
+    margin: 1rem;
+    font-weight: 400;
+  }
   .shop {
     .sort {
       display: flex;
@@ -121,7 +128,7 @@ const changeSort = (type) => {
       padding: 10px 20px;
       background-color: rgb(130, 203, 135);
       width: fit-content;
-      margin-left: 1rem;
+      margin: 1rem;
       li {
         list-style-type: none;
         color: rgb(25, 68, 25);

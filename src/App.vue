@@ -4,7 +4,7 @@
 import { computed, reactive, ref } from 'vue';
 import { RouterLink, RouterView } from "vue-router"
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { shortMessageChange, closeSidebar } from './functions';
+import { shortMessageChange, closeSidebar, toggleShoppingCart } from './functions';
 const active = reactive({
   active: '',
 })
@@ -80,7 +80,7 @@ const handleSignOut = () => {
     </div>
 
     <div class="shortMessage">
-      <p class="message">test message</p>
+      <p class="message"></p>
     </div>
 
     <!-- Shopping cart -->
@@ -117,9 +117,9 @@ const handleSignOut = () => {
     <div class="backDrop"></div>
 
     <!-- the view all the pages are being rendered -->
-    <RouterView v-if="userState.user" :addToCart="addToShoppingCart" :toggleShoppingCart="toggleShoppingCart" :products="cartState.products"
+    <RouterView v-if="userState.user" :addToCart="addToShoppingCart" :products="cartState.products"
       :user="userState.user.email" />
-    <RouterView v-else :addToCart="addToShoppingCart" :toggleShoppingCart="toggleShoppingCart" :products="cartState.products"
+    <RouterView v-else :addToCart="addToShoppingCart" :products="cartState.products"
       :shortMessageChange="shortMessageChange" />
   </div>
   <footer>
