@@ -4,7 +4,7 @@
 import { computed, reactive, ref } from 'vue';
 import { RouterLink, RouterView } from "vue-router"
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-
+import { shortMessageChange, closeSidebar } from './functions';
 const active = reactive({
   active: '',
 })
@@ -14,35 +14,15 @@ const userState = reactive({
 const cartState = reactive({
   products: []
 })
-// const admin = ref(false)
 
 const auth = getAuth()
 onAuthStateChanged(auth, (user) => {
   if (user) {
     userState.user = user
-    if (user.email == 'admin@admin.admin') {
-      admin.value = true
-    }
   } else {
     console.log('Not signed in');
   }
 })
-
-const closeSidebar = () => {
-  const sideBar = document.querySelector('.sideBar')
-  const backDrop = document.querySelector('.backDrop')
-
-  sideBar.classList.toggle('on')
-  sideBar.classList.toggle('off')
-  backDrop.classList.toggle('on')
-}
-
-const toggleShoppingCart = () => {
-  const shoppingcartEl = document.querySelector('.shoppingCart')
-  shoppingcartEl.classList.toggle('on')
-  shoppingcartEl.classList.toggle('off')
-}
-
 
 const addToShoppingCart = (image, title, price) => {
   console.log(image);
@@ -52,22 +32,10 @@ const addToShoppingCart = (image, title, price) => {
     price: price
   })
 }
+
 const removeFromCart = (index) => {
   const stateProd = cartState.products.splice(index, 1)
   console.log(stateProd);
-}
-
-const shortMessageChange = (mes) => {
-  let shortMessage = document.querySelector('.shortMessage');
-  let message = document.querySelector('.message')
-  closeSidebar();
-  shortMessage.classList.add('on')
-  shortMessage.classList.remove('off')
-  message.textContent = mes
-  setTimeout(() => {
-    shortMessage.classList.remove('on')
-    shortMessage.classList.add('off')
-  }, 2000)
 }
 
 const handleSignOut = () => {
@@ -96,7 +64,7 @@ const handleSignOut = () => {
         <RouterLink class="link" to="/">Home</RouterLink>
         <RouterLink class="link" to="/about">About</RouterLink>
         <RouterLink class="link" to="/shop">Shop</RouterLink>
-        <RouterLink class="link" v-if="admin == true" to="/admin">Admin</RouterLink>
+        <RouterLink class="link" to="/admin">Admin</RouterLink>
         <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
         <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
       </div>

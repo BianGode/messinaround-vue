@@ -24,5 +24,26 @@ const toggleShoppingCart = () => {
   shoppingcartEl.classList.toggle('off')
 }
 
+const shortMessageChange = (mes) => {
+  let shortMessage = document.querySelector('.shortMessage');
+  let message = document.querySelector('.message')
+  closeSidebar();
+  shortMessage.classList.add('on')
+  shortMessage.classList.remove('off')
+  message.textContent = mes
+  setTimeout(() => {
+    shortMessage.classList.remove('on')
+    shortMessage.classList.add('off')
+  }, 2000)
+}
 
-export { checkSideBarFun, calculatePrice, toggleShoppingCart }
+const closeSidebar = () => {
+  const sideBar = document.querySelector('.sideBar')
+  const backDrop = document.querySelector('.backDrop')
+
+  sideBar.classList.toggle('on')
+  sideBar.classList.toggle('off')
+  backDrop.classList.toggle('on')
+}
+
+export { checkSideBarFun, calculatePrice, toggleShoppingCart, shortMessageChange, closeSidebar }
