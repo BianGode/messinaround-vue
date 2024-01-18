@@ -12,12 +12,23 @@ const props = defineProps({
 const auth = getAuth()
 
 const handleOrder = () => {
-  let productIDs = []
+  let productData = {
+    productIDs: [],
+    prices: [],
+    fullPrice: 0
+  }
   props.products.forEach((prod) => {
-    productIDs.push(prod.title)
+    productData.productIDs.push(prod.title)
+    productData.fullPrice += prod.price
+    console.log(productData.fullPrice);
   })
 
-  addOrder(productIDs).then(() => {
+
+  // for(let i; i < productData.prices.length; i++) {
+  //   productData.fullPrice += productData.prices[i]
+  // }
+
+  addOrder(productData).then(() => {
     console.log('Added succesfully');
     router.push("/profile/orders")
   }).catch((err) => {

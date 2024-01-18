@@ -8,5 +8,15 @@ const checkSideBarFun = () => {
   }
 };
 
+// function to calculate full price
+const calculatePrice = (arr) => {
+    let fullPrice = 0
 
-export { checkSideBarFun }
+    for(let i; i < arr.length; i++) {
+      fullPrice += arr[i]
+    }
+    return fullPrice;
+}
+
+
+export { checkSideBarFun, calculatePrice }

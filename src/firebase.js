@@ -92,11 +92,12 @@ async function getOrdersProducts(ids) {
 
   // ids.forEach( async (idList, inx) => {
     for(const [inx, idList] of ids.entries()) {
-    // console.log(idList);
+    console.log(idList);
     products.push({
       items: [],
       order: inx,
       date: idList.dateOrdered,
+      fullPrice: idList.fullPrice
     });
     // console.log(idList.productsId);
     // idList.productsId.forEach((id, index) => {
@@ -128,14 +129,8 @@ async function getOrdersProducts(ids) {
           productSnap.forEach((prod) => {
             products[inx].items.push(prod.data());
           })
-
-        // productSnap.forEach((prod) => {
-        //   console.log(prod.data());
-        //   products[inx].items.push(prod.data);
-        // })
       }
     }
-    // });
   };
   // return products
   return products;
@@ -168,9 +163,11 @@ async function addOrder(order, userEmail) {
   month = month.slice(0, 3);
   const date = day.toString() + "-" + month + "-" + year.toString();
 
+
   const orderData = {
     dateOrdered: date,
-    productsId: [...order],
+    productsId: [...order.productIDs],
+    fullPrice: order.fullPrice
   };
 
   let orderRefName = uuidv4();
@@ -179,6 +176,7 @@ async function addOrder(order, userEmail) {
   } else {
     orderRefName.slice(0, orderRefName.length - 2);
   }
+
   await setDoc(
     doc(
       db,
