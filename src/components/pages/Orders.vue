@@ -47,8 +47,8 @@ function asyncGetter() {
 
 asyncGetter()
 
-const openOrder = () => {
-  const orderProducts = document.querySelector('.orderProducts')
+const openOrder = (inx) => {
+  const orderProducts = document.querySelectorAll('.orderProducts')[inx]
   orderProducts.classList.toggle('on')
 }
 
@@ -58,11 +58,11 @@ const openOrder = () => {
     <h1>orders</h1>
     <div class="ordersWrap">
       <!-- Was busy with rendering the order per user but did not have time for it yet -->
-      <div class="order" v-if="orders.list.length > 0" v-for="order in orders.list">
+      <div class="order" v-if="orders.list.length > 0" v-for="( order , index) in orders.list">
         <div class="orderInfo">
           <h3>{{ order.date }}</h3>
           <h3>$ {{ order.fullPrice }}</h3>
-          <font-awesome-icon icon="fa-solid fa-angle-down" @click="openOrder()" />
+          <font-awesome-icon icon="fa-solid fa-angle-down" @click="openOrder(index)" />
         </div>
         <div class="orderProducts off">
           <div v-if="order.items" class="orderProduct" v-for="product in order.items">
@@ -81,7 +81,7 @@ const openOrder = () => {
   .ordersWrap {
     display: flex;
     justify-content: center;
-
+    flex-direction: column;
     .order {
       flex-direction: column;
       width: 100%;
