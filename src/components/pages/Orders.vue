@@ -34,6 +34,7 @@ function asyncGetter() {
       // console.log(finalResult);
     }).finally(() => {
       document.querySelectorAll('.orderProducts')[0].classList.toggle('on')
+      document.querySelectorAll('.orderProducts')[0].classList.toggle('off')
 
     })
   })
@@ -50,6 +51,7 @@ asyncGetter()
 const openOrder = (inx) => {
   const orderProducts = document.querySelectorAll('.orderProducts')[inx]
   orderProducts.classList.toggle('on')
+  orderProducts.classList.toggle('off')
 }
 
 </script>

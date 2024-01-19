@@ -246,6 +246,9 @@ const handleSignOut = () => {
         text-align: center;
       }
     }
+    .headProfile {
+      color: black;
+    } 
   }
 }
 
