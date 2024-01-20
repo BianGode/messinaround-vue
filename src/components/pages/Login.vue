@@ -16,7 +16,7 @@ const handleLogin = (email, pass) => {
   login(email, pass).then(() => {
     props.shortMessageChange('Login Completed')
     // setTimeout(() => {
-      router.push('/')      
+    router.push('/')
     // }, 1000)
   }).catch((err) => {
     console.log(err);
@@ -29,14 +29,23 @@ onMounted(() => {
 
 <template>
   <div class="loginPage">
-    <h3>Login</h3>
     <div>
-      <p>Email</p>
-      <input v-model="email" type="text">
-      <p>Password</p>
-      <input v-model="pass" type="password">
+      <!-- image of a desktop here or something and maybe a welcome message -->
     </div>
-    <button @click="handleLogin(email, pass)">Login</button>
+    <div>
+      <h3>&lt;Logo&gt;</h3>
+      <div class="loginInputs">
+        <div>
+          <font-awesome-icon icon="fa-solid fa-user" />
+          <input v-model="email" type="text">
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-lock" />
+          <input v-model="pass" type="password">
+        </div>
+      </div>
+      <button @click="handleLogin(email, pass)">Login</button>
+    </div>
   </div>
 </template>
 
@@ -48,11 +57,19 @@ onMounted(() => {
   margin-top: 100px;
   align-items: center;
   gap: 1rem;
-  div {
-    input {
-      width: 80%;
+
+  .loginInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    div {
+      input {
+        width: 80%;
+      }
     }
   }
+
   button {
     padding: 10px 30px;
     border: none;
@@ -61,7 +78,7 @@ onMounted(() => {
     background-color: rgb(65, 136, 65);
   }
 }
+
 @media only screen and (min-width: 900px) {
   //  desktop style here
-}
-</style>
+}</style>
