@@ -65,8 +65,13 @@ function handleRegister() {
     flex-direction: column;
     text-align: center;
     gap: 1rem;
+    
+    div {
+      input {
+        width: 80%;
+      }
+    }
   }
-
   button {
     width: fit-content;
     padding: 5px 10px;

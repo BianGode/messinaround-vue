@@ -54,7 +54,6 @@ onMounted(() => {
   text-align: center;
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
   align-items: center;
   gap: 1rem;
 
@@ -62,7 +61,6 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-
     div {
       input {
         width: 80%;

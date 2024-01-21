@@ -140,6 +140,7 @@ const handleSignOut = () => {
 // fonts
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600&display=swap');
 
+
 @keyframes sidebarExpand {
   from {
     width: 0%;
@@ -189,8 +190,9 @@ const handleSignOut = () => {
 }
 
 .mainWrap {
-  padding-bottom: 100px;
-  min-height: 100vh;
+  // padding-bottom: 100px;
+  // min-height: 100vh;
+  height: calc(100% - 100px);
   display: flex;
   flex-direction: column;
 }
@@ -456,6 +458,7 @@ const handleSignOut = () => {
 
 footer {
   height: 100px;
+  // margin-top: auto;
   margin-top: auto;
   background-color: #006457;
   .footerInfo {
