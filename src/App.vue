@@ -192,7 +192,7 @@ const handleSignOut = () => {
 .mainWrap {
   // padding-bottom: 100px;
   // min-height: 100vh;
-  height: calc(100% - 100px);
+  height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
 }
