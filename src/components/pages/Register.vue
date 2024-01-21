@@ -18,14 +18,14 @@ onMounted(() => {
   // addOrder()
 })
 
-function handleRegister()  {
+function handleRegister() {
   if (pass.value == secondPass.value) {
     register(email.value, pass.value).then(() => {
-    props.shortMessageChange('Login Completed')
-      router.push('/')      
-  }).catch((err) => {
-    console.log(err);
-  })
+      props.shortMessageChange('Login Completed')
+      router.push('/')
+    }).catch((err) => {
+      console.log(err);
+    })
   } else {
     alert('password does not match')
   }
@@ -35,13 +35,19 @@ function handleRegister()  {
 <template>
   <div class="registerPage">
     <h3>Register</h3>
-    <div>
-      <p>Email</p>
-      <input v-model="email" type="text">
-      <p>Password</p>
-      <input v-model="pass" type="password">
-      <p>Password</p>
-      <input v-model="secondPass" type="password">
+    <div class="registerInputs">
+      <div>
+        <font-awesome-icon icon="fa-solid fa-user"/>
+        <input placeholder="Email" v-model="email" type="text">
+      </div>
+      <div>
+        <font-awesome-icon icon="fa-solid fa-lock"/>
+        <input v-model="pass" placeholder="Password" type="password">
+      </div>
+      <div>
+        <font-awesome-icon icon="fa-solid fa-lock"/>
+        <input v-model="secondPass" placeholder="Password check" type="password">
+      </div>
     </div>
     <button @click="handleRegister">Register</button>
   </div>
@@ -49,7 +55,21 @@ function handleRegister()  {
 
 <style lang="scss" scoped>
 .registerPage {
-  display: grid;
-  grid-template-rows: 20% 80%;
+  // display: grid;
+  // grid-template-rows: 20% 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .registerInputs {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  button {
+    width: fit-content;
+    padding: 5px 10px;
+  }
 }
 </style>
