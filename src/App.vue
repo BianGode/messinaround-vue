@@ -116,10 +116,10 @@ const handleSignOut = () => {
     </div>
     <div class="backDrop"></div>
 
-    <!-- the view all the pages are being rendered -->
-    <RouterView class="test" v-if="userState.user" :addToCart="addToShoppingCart" :products="cartState.products"
+    <!-- the view main view depending on if user exist or not -->
+    <RouterView v-if="userState.user" :addToCart="addToShoppingCart" :products="cartState.products"
       :user="userState.user.email" />
-    <RouterView class="test" v-else :addToCart="addToShoppingCart" :products="cartState.products"
+    <RouterView v-else :addToCart="addToShoppingCart" :products="cartState.products"
       :shortMessageChange="shortMessageChange" />
   </div>
   <footer>
@@ -135,15 +135,10 @@ const handleSignOut = () => {
     </div>
   </footer>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 // note to self: create a keyframe for slide in and out sidebar and fix sidebar styling
 // fonts
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600&display=swap');
-
-.test {
-  // height: calc(100vh - 100px - 70px);
-  // overflow-y:
-}
 
 @keyframes sidebarExpand {
   from {
@@ -199,7 +194,19 @@ const handleSignOut = () => {
   flex-direction: column;
   padding-bottom: 2.5rem;    /* Footer height */
 }
+// style the register and login page for correct layout  
+.regLog {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  p {
+    margin: 0;
+  }
+}
 
+// Navigation styling
 .Navigation {
   width: 100%;
   height: 70px;

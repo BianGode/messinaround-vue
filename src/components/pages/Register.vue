@@ -34,22 +34,24 @@ function handleRegister() {
 </script>
 <template>
   <div class="registerPage">
-    <h3>Register</h3>
-    <div class="registerInputs">
-      <div>
-        <font-awesome-icon icon="fa-solid fa-user"/>
-        <input placeholder="Email" v-model="email" type="text">
+    <div class="registerContentWrap regLog">
+      <p>Register</p>
+      <div class="registerInputs">
+        <div>
+          <font-awesome-icon icon="fa-solid fa-user" />
+          <input placeholder="Email" v-model="email" type="text">
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-lock" />
+          <input v-model="pass" placeholder="Password" type="password">
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-lock" />
+          <input v-model="secondPass" placeholder="Password check" type="password">
+        </div>
       </div>
-      <div>
-        <font-awesome-icon icon="fa-solid fa-lock"/>
-        <input v-model="pass" placeholder="Password" type="password">
-      </div>
-      <div>
-        <font-awesome-icon icon="fa-solid fa-lock"/>
-        <input v-model="secondPass" placeholder="Password check" type="password">
-      </div>
+      <button @click="handleRegister">Register</button>
     </div>
-    <button @click="handleRegister">Register</button>
   </div>
 </template>
 
@@ -60,21 +62,27 @@ function handleRegister() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  .registerInputs {
-    display: flex;
-    flex-direction: column;
+  height: calc(100vh - 100px - 70px);
+
+  .registerContentWrap {
     text-align: center;
-    gap: 1rem;
-    
-    div {
-      input {
-        width: 80%;
+    .registerInputs {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+
+      div {
+        input {
+          width: 80%;
+        }
       }
     }
-  }
-  button {
-    width: fit-content;
-    padding: 5px 10px;
+
+    button {
+      width: fit-content;
+      padding: 5px 10px;
+    }
   }
 }
 </style>

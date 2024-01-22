@@ -28,11 +28,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="loginPage">
-    <div>
-      <!-- image of a desktop here or something and maybe a welcome message -->
-    </div>
-    <div>
+  <div class="loginPage regLog">
+    <div class="loginContentWrap">
       <h3>&lt;Logo&gt;</h3>
       <div class="loginInputs">
         <div>
@@ -56,24 +53,28 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  height: calc(100vh - 100px - 70px);
 
-  .loginInputs {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    div {
-      input {
-        width: 80%;
+  .loginContentWrap {
+    .loginInputs {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      div {
+        input {
+          width: 80%;
+        }
       }
     }
-  }
 
-  button {
-    padding: 10px 30px;
-    border: none;
-    border-radius: 10px;
-    font-weight: 500;
-    background-color: rgb(65, 136, 65);
+    button {
+      padding: 10px 30px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 500;
+      background-color: rgb(65, 136, 65);
+    }
   }
 }
 
