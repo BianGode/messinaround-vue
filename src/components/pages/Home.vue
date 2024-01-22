@@ -12,7 +12,8 @@ onMounted(() => {
   <div class="homepageWrap">
     <div class="bannerAndWelcome">
       <!-- <h1 class="bannerImage">Quality Speakers and Monitors!</h1> -->
-      <img class="bannerImage" src="../../../images/homepage-sale.png" alt="">
+      <!-- <img class="bannerImage" src="../../../images/homepage-sale.png" alt=""> -->
+      <h2>Still need to figure out what i have to put here</h2>
       <p class="homeInfoText">
         Welcome to our webshop, where we offer a small range of good speakers and monitors to enhance your audio and
         visual
@@ -59,7 +60,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100% - 100px - 70px);
+  // height: calc(100% - 100px - 70px);
   
   .bannerAndWelcome {
     width: 80%;

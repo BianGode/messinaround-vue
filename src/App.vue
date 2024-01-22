@@ -117,9 +117,9 @@ const handleSignOut = () => {
     <div class="backDrop"></div>
 
     <!-- the view all the pages are being rendered -->
-    <RouterView v-if="userState.user" :addToCart="addToShoppingCart" :products="cartState.products"
+    <RouterView class="test" v-if="userState.user" :addToCart="addToShoppingCart" :products="cartState.products"
       :user="userState.user.email" />
-    <RouterView v-else :addToCart="addToShoppingCart" :products="cartState.products"
+    <RouterView class="test" v-else :addToCart="addToShoppingCart" :products="cartState.products"
       :shortMessageChange="shortMessageChange" />
   </div>
   <footer>
@@ -140,6 +140,10 @@ const handleSignOut = () => {
 // fonts
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600&display=swap');
 
+.test {
+  // height: calc(100vh - 100px - 70px);
+  // overflow-y:
+}
 
 @keyframes sidebarExpand {
   from {
@@ -190,11 +194,10 @@ const handleSignOut = () => {
 }
 
 .mainWrap {
-  // padding-bottom: 100px;
-  // min-height: 100vh;
-  height: calc(100vh - 100px);
+  // height: calc(100% - 100px);
   display: flex;
   flex-direction: column;
+  padding-bottom: 2.5rem;    /* Footer height */
 }
 
 .Navigation {
@@ -457,9 +460,10 @@ const handleSignOut = () => {
 
 
 footer {
+  position: absolute;
+  bottom: 0;
   height: 100px;
-  // margin-top: auto;
-  margin-top: auto;
+  width: 100%;
   background-color: #006457;
   .footerInfo {
     width: 60%;
