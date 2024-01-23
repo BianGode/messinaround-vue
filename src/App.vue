@@ -74,7 +74,8 @@ const handleSignOut = () => {
           <div class="countCart" v-if="cartState.products.length <= 9">{{ cartState.products.length }}</div>
           <div class="countCart" v-if="cartState.products.length > 9">9+</div>
         </div>
-        <RouterLink v-if="userState.user" to="/profile/orders"><font-awesome-icon class="headProfile" icon="fa-solid fa-user" />
+        <RouterLink v-if="userState.user" to="/profile/orders"><font-awesome-icon class="headProfile"
+            icon="fa-solid fa-user" />
         </RouterLink>
       </div>
     </div>
@@ -192,18 +193,8 @@ const handleSignOut = () => {
   // height: calc(100% - 100px);
   display: flex;
   flex-direction: column;
-  padding-bottom: 2.5rem;    /* Footer height */
-}
-// style the register and login page for correct layout  
-.regLog {
-  margin-top: 5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  p {
-    margin: 0;
-  }
+  padding-bottom: 2.5rem;
+  /* Footer height */
 }
 
 // Navigation styling
@@ -258,12 +249,53 @@ const handleSignOut = () => {
         text-align: center;
       }
     }
+
     .headProfile {
       color: black;
-    } 
+    }
   }
 }
 
+// style the register and login page for correct layout  
+.regLog {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 80%;
+
+  .registerInputs,
+  .loginInputs {
+    width: 100%;
+
+    div {
+      width: 100%;
+      padding: 10px 0px;
+      border: 1px solid #06c442;
+      border-radius: 20px;
+      p {
+        margin: 0;
+      }
+
+      input {
+        width: 100%;
+        border: 0;
+      }
+      input:focus {
+        outline: none;
+      }
+    }
+  }
+  button {
+    background-color: #06c442;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+  }
+}
+
+// style for the backdrop and sidebar
 .backDrop.on {
   position: absolute;
   top: 0;
@@ -295,10 +327,12 @@ const handleSignOut = () => {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+
     a {
       color: #8C7404;
       text-decoration: none;
     }
+
     button {
       background-color: white;
       border: 2px solid rgb(25, 68, 25);
@@ -311,6 +345,7 @@ const handleSignOut = () => {
       transition: all 0.2s ease;
       font-weight: 700;
     }
+
     button:hover {
       transform: scale(1.1);
       background-color: rgb(25, 68, 25);
@@ -472,15 +507,18 @@ footer {
   height: 100px;
   width: 100%;
   background-color: #006457;
+
   .footerInfo {
     width: 60%;
     display: grid;
     grid-template-columns: auto auto;
+
     .phoneWrap {
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
     .envelopeWrap {
       display: flex;
       justify-content: center;

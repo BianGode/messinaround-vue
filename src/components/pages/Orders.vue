@@ -19,7 +19,6 @@ function asyncGetter() {
     getOrdersProducts(res).then((finalResult) => {
       orders.list.push(...finalResult)
       for (let y = 0; y < finalResult.length; y++) {
-
         for (let i = 0; i < finalResult[y].items.length; i++) {
           console.log('i = ' + i);
           getDownloadURL(ref(storage, 'products/' + finalResult[y].items[i].image))
@@ -35,7 +34,6 @@ function asyncGetter() {
     }).finally(() => {
       document.querySelectorAll('.orderProducts')[0].classList.toggle('on')
       document.querySelectorAll('.orderProducts')[0].classList.toggle('off')
-
     })
   })
     .catch((err) => {

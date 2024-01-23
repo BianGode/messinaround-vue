@@ -67,14 +67,6 @@ onMounted(() => {
         }
       }
     }
-
-    button {
-      padding: 10px 30px;
-      border: none;
-      border-radius: 10px;
-      font-weight: 500;
-      background-color: rgb(65, 136, 65);
-    }
   }
 }
 

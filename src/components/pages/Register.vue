@@ -78,11 +78,6 @@ function handleRegister() {
         }
       }
     }
-
-    button {
-      width: fit-content;
-      padding: 5px 10px;
-    }
   }
 }
 </style>
