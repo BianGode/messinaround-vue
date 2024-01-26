@@ -193,7 +193,7 @@ const handleSignOut = () => {
   // height: calc(100% - 100px);
   display: flex;
   flex-direction: column;
-  padding-bottom: 2.5rem;
+  padding-bottom: 100px;
   /* Footer height */
 }
 

@@ -106,7 +106,7 @@ const changeSort = (type) => {
       background-color: rgb(236, 255, 236);
       padding: 5px;
       img {
-        width: 300px;
+        width: 175px;
         margin: 0 auto;
       }
     }
