@@ -62,7 +62,6 @@ const emitShopCart = defineEmits(['shop-cart'])
   img {
     width: 300px;
     margin: 0 auto;
-
   }
   .productHover {
     display: flex;

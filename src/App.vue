@@ -64,7 +64,6 @@ const handleSignOut = () => {
         <RouterLink class="link" to="/">Home</RouterLink>
         <RouterLink class="link" to="/about">About</RouterLink>
         <RouterLink class="link" to="/shop">Shop</RouterLink>
-        <RouterLink class="link" to="/admin">Admin</RouterLink>
         <RouterLink v-if="!userState.user" class="link" to="/login">Login</RouterLink>
         <RouterLink v-if="!userState.user" class="link" to="/register">Register</RouterLink>
       </div>

@@ -49,6 +49,19 @@ onMounted(() => {
       <button @click="props.addToCart(prod.image, prod.title, prod.price)">Add to cart<font-awesome-icon icon="fa-solid fa-cart-shopping" /></button>
     </div>
   </div>
+  <div class="reviewsWrap">
+    <!-- leave review -->
+    <div class="leaveReview">
+      <textarea name="review" id="review" cols="30" rows="10">
+        Write review here   
+      </textarea>
+      <button>Leave Review</button>
+    </div>
+    <!-- read reviews -->
+    <div class="readReviews">
+
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
