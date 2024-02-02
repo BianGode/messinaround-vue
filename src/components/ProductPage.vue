@@ -56,10 +56,12 @@ onMounted(() => {
         Write review here   
       </textarea>
       <button>Leave Review</button>
+      <!-- figure out in which collection to save the review -->
+      <!-- my guess = Products/electronics/speakers/speaker-one/reviews/test@test.nl/ -->
     </div>
     <!-- read reviews -->
     <div class="readReviews">
-
+      <!-- v-for first x reviews -->
     </div>
   </div>
 </template>
@@ -90,6 +92,14 @@ onMounted(() => {
     border: #006457 2px solid;
     color: white;
     transition: all 0.2s ease;
+  }
+}
+.reviewsWrap {
+  .leaveReview {
+
+  }
+  .readReviews {
+
   }
 }
 @media only screen and (min-width: 900px) {
