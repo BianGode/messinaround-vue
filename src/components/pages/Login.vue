@@ -48,14 +48,12 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .loginPage {
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
   height: calc(100vh - 100px - 70px);
-
   .loginContentWrap {
+    text-align: center;
     .loginInputs {
       display: flex;
       flex-direction: column;

@@ -63,7 +63,6 @@ function handleRegister() {
   flex-direction: column;
   align-items: center;
   height: calc(100vh - 100px - 70px);
-
   .registerContentWrap {
     text-align: center;
     .registerInputs {

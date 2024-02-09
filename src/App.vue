@@ -258,11 +258,15 @@ const handleSignOut = () => {
 // style the register and login page for correct layout  
 .regLog {
   margin-top: 5rem;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // gap: 1rem;
+  // width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  width: 80%;
+  height: calc(100vh - 100px - 70px);
 
   .registerInputs,
   .loginInputs {
