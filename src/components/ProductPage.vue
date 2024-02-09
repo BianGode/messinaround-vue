@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { getSingleProduct } from '../firebase'
+import { getSingleProduct, writeReview } from '../firebase'
 import { onMounted, reactive } from 'vue';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 import { checkSideBarFun } from '../functions'
@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 const recieviedProd = reactive({
   product: {},
 });
+const reviewState = ref()
 
 const props = defineProps({
   addToCart: Function
@@ -52,10 +53,10 @@ onMounted(() => {
   <div class="reviewsWrap">
     <!-- leave review -->
     <div class="leaveReview">
-      <textarea name="review" id="review" cols="30" rows="10">
+      <textarea name="review" v-model="reviewState" id="review" cols="30" rows="10">
         Write review here   
       </textarea>
-      <button>Leave Review</button>
+      <button @click="writeReview">Leave Review</button>
       <!-- figure out in which collection to save the review -->
       <!-- my guess = Products/electronics/speakers/speaker-one/reviews/test@test.nl/ -->
     </div>

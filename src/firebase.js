@@ -236,6 +236,14 @@ async function getSingleProduct() {
   return product;
 }
 
+async function writeReview() {
+
+}
+
+async function getReviews(product) {
+
+}
+
 export {
   auth,
   register,
@@ -247,4 +255,5 @@ export {
   getSingleProduct,
   addOrder,
   getOrdersProducts,
+  writeReview,
 };
